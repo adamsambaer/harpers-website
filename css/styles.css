@@ -2000,33 +2000,49 @@ ul { list-style: none; }
     max-width: 92%;
     gap: 10px;
   }
+
+  /* Compact default — tap expands to full 9:16 portrait */
   .event-card {
     aspect-ratio: 3 / 2;
   }
+  .event-card:hover {
+    aspect-ratio: 9 / 16;
+    transform: none;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+  }
+
   .ecard-inner {
-    padding: 16px 18px 14px;
+    padding: 14px 16px 14px;
   }
   .ecard-day {
-    font-size: 0.72rem;
-    margin-bottom: 6px;
+    font-size: 0.7rem;
+    margin-bottom: 5px;
   }
   .ecard-name {
-    font-size: clamp(1.5rem, 7vw, 2rem);
+    font-size: clamp(1.4rem, 6.5vw, 2rem);
     flex: unset;
     margin-bottom: 4px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.65);
   }
   .ecard-divider {
-    margin: 10px 0 8px;
+    margin: 8px 0 7px;
   }
   .ecard-deals {
-    font-size: 0.72rem;
-    gap: 3px;
-    margin-bottom: 10px;
+    font-size: 0.74rem;
+    gap: 4px;
+    margin-bottom: 0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.55);
   }
+
+  /* Stamp: absolute bottom-right so it never gets cut off */
   .ecard-stamp {
-    width: 68px;
-    height: 68px;
-    font-size: 0.62rem;
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    width: 70px;
+    height: 70px;
+    font-size: 0.6rem;
+    z-index: 3;
   }
 }
 
