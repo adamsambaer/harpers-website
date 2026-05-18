@@ -349,9 +349,9 @@ ul { list-style: none; }
   max-width: 800px;
 }
 
-/* ─── LOGO BOUNCE ANIMATION (fires once on load, then holds) ─── */
+/* ─── LOGO REVEAL ANIMATION (fires once on load, then holds) ─── */
 .logo-animate {
-  animation: logoDribble 1.4s cubic-bezier(0.28, 0.84, 0.42, 1) 0.2s both;
+  animation: logoReveal 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
 }
 .logo-animate img {
   height: 180px;
@@ -359,15 +359,9 @@ ul { list-style: none; }
   margin: 0 auto 16px;
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
 }
-@keyframes logoDribble {
-  0%   { opacity: 0; transform: scale(0.08) translateY(90px); }
-  30%  { opacity: 1; transform: scale(1.25) translateY(-18px); }
-  45%  { transform: scale(0.86) translateY(12px); }
-  58%  { transform: scale(1.14) translateY(-10px); }
-  70%  { transform: scale(0.93) translateY(6px); }
-  80%  { transform: scale(1.06) translateY(-4px); }
-  89%  { transform: scale(0.98) translateY(2px); }
-  95%  { transform: scale(1.02) translateY(-1px); }
+@keyframes logoReveal {
+  0%   { opacity: 0; transform: scale(0.18) translateY(10px); }
+  60%  { opacity: 1; }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
