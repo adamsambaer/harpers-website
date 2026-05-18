@@ -2004,15 +2004,28 @@ ul { list-style: none; }
     gap: 10px;
   }
 
-  /* Compact default — tap expands to full 9:16 portrait */
+  /* Compact default */
   .event-card {
     aspect-ratio: 3 / 2;
   }
-  .event-card:hover,
-  .event-card.expanded {
+  /* DevTools hover simulation — in-place expand */
+  .event-card:hover {
     aspect-ratio: 9 / 16;
     transform: none;
     box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+  }
+  /* Real tap on device — fixed modal centered on screen */
+  .event-card.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 82vw;
+    aspect-ratio: 9 / 16;
+    z-index: 1000;
+    border-radius: 20px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.85);
+    animation: cardPop 0.25s ease;
   }
 
   .ecard-inner {
@@ -2048,6 +2061,29 @@ ul { list-style: none; }
     font-size: 0.6rem;
     z-index: 3;
   }
+}
+
+/* ─── Card expand backdrop ─── */
+#card-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 999;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+#card-backdrop.active {
+  display: block;
+  animation: backdropFade 0.25s ease forwards;
+}
+@keyframes backdropFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes cardPop {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.88); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 /* ════════════════════════════════════════════════════

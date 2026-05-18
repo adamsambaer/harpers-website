@@ -341,10 +341,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ─── 14. MOBILE CARD TAP-TO-EXPAND ─── */
+  /* ─── 14. MOBILE CARD TAP-TO-EXPAND (modal) ─── */
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     const eventCards = document.querySelectorAll('.event-card');
     let touchStartY = 0;
+
+    const backdrop = document.createElement('div');
+    backdrop.id = 'card-backdrop';
+    document.body.appendChild(backdrop);
+
+    function collapseCards() {
+      eventCards.forEach(c => c.classList.remove('expanded'));
+      backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
     eventCards.forEach(card => {
       card.addEventListener('touchstart', e => {
@@ -355,16 +365,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Math.abs(e.changedTouches[0].clientY - touchStartY) > 10) return;
         e.preventDefault();
         const isExpanded = card.classList.contains('expanded');
-        eventCards.forEach(c => c.classList.remove('expanded'));
-        if (!isExpanded) card.classList.add('expanded');
+        collapseCards();
+        if (!isExpanded) {
+          card.classList.add('expanded');
+          backdrop.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
       });
     });
 
-    document.addEventListener('touchend', e => {
-      if (!e.target.closest('.event-card')) {
-        eventCards.forEach(c => c.classList.remove('expanded'));
-      }
-    }, { passive: true });
+    backdrop.addEventListener('touchend', () => collapseCards(), { passive: true });
   }
 
 });
