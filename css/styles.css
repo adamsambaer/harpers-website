@@ -1306,11 +1306,14 @@ ul { list-style: none; }
   margin: 0;
   padding: 0;
   line-height: 0;
+  margin-bottom: -2px; /* close sub-pixel gap on high-DPI screens */
+  position: relative;
+  z-index: 1;
 }
 .divider-rough svg {
   display: block;
   width: 100%;
-  height: 80px;
+  height: 82px; /* 2px extra ensures wave fill always reaches the bottom edge */
 }
 .db-teal  { background: var(--teal); }
 .db-cream { background: var(--cream); }
