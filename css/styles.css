@@ -1784,8 +1784,7 @@ ul { list-style: none; }
   background-position: center;
   transition: transform 0.7s var(--ease-out);
 }
-.event-card:hover .ecard-bg,
-.event-card.expanded .ecard-bg { transform: scale(1.07); }
+.event-card:hover .ecard-bg { transform: scale(1.07); }
 
 /* ─── Color/gradient overlay ─── */
 .ecard-overlay {
@@ -1794,8 +1793,7 @@ ul { list-style: none; }
   z-index: 1;
   transition: opacity 0.5s var(--ease-out);
 }
-.event-card:hover .ecard-overlay,
-.event-card.expanded .ecard-overlay { opacity: 0; }
+.event-card:hover .ecard-overlay { opacity: 0; }
 
 /* ─── Content layer ─── */
 .ecard-inner {
@@ -1807,8 +1805,7 @@ ul { list-style: none; }
   padding: 28px 24px 22px;
   transition: opacity 0.5s var(--ease-out);
 }
-.event-card:hover .ecard-inner,
-.event-card.expanded .ecard-inner { opacity: 0; }
+.event-card:hover .ecard-inner { opacity: 0; }
 
 .ecard-day {
   display: block;
@@ -2008,24 +2005,10 @@ ul { list-style: none; }
   .event-card {
     aspect-ratio: 3 / 2;
   }
-  /* DevTools hover simulation — in-place expand */
   .event-card:hover {
     aspect-ratio: 9 / 16;
     transform: none;
     box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-  }
-  /* Real tap on device — fixed modal centered on screen */
-  .event-card.expanded {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 82vw;
-    aspect-ratio: 9 / 16;
-    z-index: 1000;
-    border-radius: 20px;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.85);
-    animation: cardPop 0.25s ease;
   }
 
   .ecard-inner {
@@ -2063,27 +2046,35 @@ ul { list-style: none; }
   }
 }
 
-/* ─── Card expand backdrop ─── */
-#card-backdrop {
-  display: none;
+/* ─── Card photo modal ─── */
+#card-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
   z-index: 999;
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
-#card-backdrop.active {
-  display: block;
-  animation: backdropFade 0.25s ease forwards;
+#card-modal.active {
+  opacity: 1;
+  pointer-events: all;
 }
-@keyframes backdropFade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+#card-modal-img {
+  width: 82vw;
+  aspect-ratio: 9 / 16;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  transform: scale(0.88);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-@keyframes cardPop {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.88); }
-  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+#card-modal.active #card-modal-img {
+  transform: scale(1);
 }
 
 /* ════════════════════════════════════════════════════

@@ -344,37 +344,46 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── 14. MOBILE CARD TAP-TO-EXPAND (modal) ─── */
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     const eventCards = document.querySelectorAll('.event-card');
+    let touchStartX = 0;
     let touchStartY = 0;
 
-    const backdrop = document.createElement('div');
-    backdrop.id = 'card-backdrop';
-    document.body.appendChild(backdrop);
+    const modal    = document.createElement('div');
+    const modalImg = document.createElement('div');
+    modal.id    = 'card-modal';
+    modalImg.id = 'card-modal-img';
+    modal.appendChild(modalImg);
+    document.body.appendChild(modal);
 
-    function collapseCards() {
-      eventCards.forEach(c => c.classList.remove('expanded'));
-      backdrop.classList.remove('active');
+    function openModal(card) {
+      const bg = card.querySelector('.ecard-bg');
+      const style = getComputedStyle(bg);
+      modalImg.style.backgroundImage    = style.backgroundImage;
+      modalImg.style.backgroundPosition = style.backgroundPosition;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
       document.body.style.overflow = '';
     }
 
     eventCards.forEach(card => {
       card.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
       }, { passive: true });
 
       card.addEventListener('touchend', e => {
-        if (Math.abs(e.changedTouches[0].clientY - touchStartY) > 10) return;
+        const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+        const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+        if (dx > 8 || dy > 8) return;
         e.preventDefault();
-        const isExpanded = card.classList.contains('expanded');
-        collapseCards();
-        if (!isExpanded) {
-          card.classList.add('expanded');
-          backdrop.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
+        openModal(card);
       });
     });
 
-    backdrop.addEventListener('touchend', () => collapseCards(), { passive: true });
+    modal.addEventListener('touchend', closeModal, { passive: true });
   }
 
 });
