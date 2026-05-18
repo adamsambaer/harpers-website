@@ -238,19 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(step);
   }
 
-  /* Givesback counters: wait for the reveal transition to finish before counting */
-  document.querySelectorAll('.counter-block').forEach(block => {
-    const counterEl = block.querySelector('.counter');
-    if (!counterEl) return;
-
-    block.addEventListener('transitionend', function handler(e) {
-      if (e.propertyName !== 'opacity') return;
-      block.removeEventListener('transitionend', handler);
-      animateCounter(counterEl);
+  /* Givesback counter-blocks: boxes are static, count up when in view */
+  const counterBlockObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const counterEl = entry.target.querySelector('.counter');
+      if (counterEl) animateCounter(counterEl);
+      counterBlockObserver.unobserve(entry.target);
     });
-  });
+  }, { threshold: 0.3 });
 
-  /* Standalone counters (e.g. gameday stats) keep the old observer */
+  document.querySelectorAll('.counter-block').forEach(block =>
+    counterBlockObserver.observe(block)
+  );
+
+  /* Standalone counters (e.g. gameday stats) */
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
