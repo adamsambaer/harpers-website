@@ -1993,57 +1993,87 @@ ul { list-style: none; }
 .card-saturday .ecard-deals { color: rgba(255,251,244,0.82); }
 .card-saturday .ecard-stamp { background: var(--yellow); color: var(--navy-dark); }
 
-/* ─── Event cards: mobile single-column layout ─── */
+/* ─── Event cards: horizontal carousel (mobile) ─── */
 @media (max-width: 540px) {
+  /* Full-bleed horizontal scroll, breaks out of the 16px section padding */
   .event-cards-grid {
-    grid-template-columns: 1fr;
-    max-width: 92%;
-    gap: 10px;
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 12px;
+    padding: 0 16px 24px;
+    max-width: none;
+    width: calc(100% + 32px);
+    margin: 0 -16px 0;
+    scroll-padding-left: 16px;
   }
+  .event-cards-grid::-webkit-scrollbar { display: none; }
 
-  /* Compact default */
+  /* Each card snaps into place, full portrait */
   .event-card {
-    aspect-ratio: 3 / 2;
-  }
-  .event-card:hover {
+    flex: 0 0 82vw;
+    scroll-snap-align: start;
     aspect-ratio: 9 / 16;
-    transform: none;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+  }
+  .event-card:hover { transform: none; }
+
+  /* Slightly tighten text for 82vw card width */
+  .ecard-name  { font-size: clamp(1.5rem, 5.5vw, 2.4rem); }
+  .ecard-deals { font-size: 0.82rem; }
+
+  /* Dot indicators (injected by JS) */
+  .cards-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    padding: 14px 0 4px;
+  }
+  .cards-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    opacity: 0.18;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  }
+  .cards-dot.active {
+    opacity: 1;
+    transform: scale(1.4);
+    background: var(--navy);
   }
 
-  .ecard-inner {
-    padding: 14px 16px 14px;
+  /* Swipe hint (injected by JS) */
+  .cards-swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    opacity: 0.45;
+    padding-bottom: 8px;
+    animation: hintBounce 2s ease-in-out infinite;
+    transition: opacity 0.5s ease;
   }
-  .ecard-day {
-    font-size: 0.7rem;
-    margin-bottom: 5px;
+  .cards-swipe-hint.hidden {
+    opacity: 0;
+    pointer-events: none;
+    animation: none;
   }
-  .ecard-name {
-    font-size: clamp(1.4rem, 6.5vw, 2rem);
-    flex: unset;
-    margin-bottom: 4px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.65);
-  }
-  .ecard-divider {
-    margin: 8px 0 7px;
-  }
-  .ecard-deals {
-    font-size: 0.74rem;
-    gap: 4px;
-    margin-bottom: 0;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.55);
-  }
+}
 
-  /* Stamp: absolute bottom-right so it never gets cut off */
-  .ecard-stamp {
-    position: absolute;
-    bottom: 14px;
-    right: 14px;
-    width: 70px;
-    height: 70px;
-    font-size: 0.6rem;
-    z-index: 3;
-  }
+@keyframes hintBounce {
+  0%, 100% { transform: translateX(0);   opacity: 0.45; }
+  45%       { transform: translateX(6px); opacity: 0.75; }
+  65%       { transform: translateX(-2px); }
 }
 
 /* ─── Card photo modal ─── */

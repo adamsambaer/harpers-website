@@ -341,12 +341,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ─── 14. MOBILE CARD TAP-TO-EXPAND (modal) ─── */
+  /* ─── 14. MOBILE CAROUSEL: dots, swipe hint, tap-to-modal ─── */
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     const eventCards = document.querySelectorAll('.event-card');
-    let touchStartX = 0;
-    let touchStartY = 0;
+    const grid       = document.querySelector('.event-cards-grid');
+    let touchStartX  = 0;
+    let touchStartY  = 0;
 
+    /* Modal */
     const modal    = document.createElement('div');
     const modalImg = document.createElement('div');
     modal.id    = 'card-modal';
@@ -356,13 +358,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openModal(card) {
       const bg = card.querySelector('.ecard-bg');
-      const style = getComputedStyle(bg);
-      modalImg.style.backgroundImage    = style.backgroundImage;
-      modalImg.style.backgroundPosition = style.backgroundPosition;
+      const s  = getComputedStyle(bg);
+      modalImg.style.backgroundImage    = s.backgroundImage;
+      modalImg.style.backgroundPosition = s.backgroundPosition;
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-
     function closeModal() {
       modal.classList.remove('active');
       document.body.style.overflow = '';
@@ -377,13 +378,45 @@ document.addEventListener('DOMContentLoaded', () => {
       card.addEventListener('touchend', e => {
         const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
         const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
-        if (dx > 8 || dy > 8) return;
+        if (dx > 8 || dy > 8) return; /* was a swipe, not a tap */
         e.preventDefault();
         openModal(card);
       });
     });
 
     modal.addEventListener('touchend', closeModal, { passive: true });
+
+    /* Dots + swipe hint */
+    if (grid && eventCards.length) {
+      const dotsWrap = document.createElement('div');
+      dotsWrap.className = 'cards-dots';
+
+      const hint = document.createElement('div');
+      hint.className = 'cards-swipe-hint';
+      hint.textContent = '← swipe →';
+
+      const dots = Array.from(eventCards).map((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'cards-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Event ${i + 1} of ${eventCards.length}`);
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      /* Insert dots then hint right after the grid */
+      grid.after(dotsWrap, hint);
+
+      let hintGone = false;
+      grid.addEventListener('scroll', () => {
+        const cardW = eventCards[0].offsetWidth + 12;
+        const idx   = Math.min(Math.round(grid.scrollLeft / cardW), dots.length - 1);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        if (!hintGone && grid.scrollLeft > 20) {
+          hintGone = true;
+          hint.classList.add('hidden');
+        }
+      }, { passive: true });
+    }
   }
 
 });
