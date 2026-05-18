@@ -7,7 +7,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ─── 0. HERO VIDEO: Autoplay + loop 2 seconds early ─── */
-  const heroVideo = document.querySelector('.hero-video');
+  const heroVideo  = document.querySelector('.hero-video');
+  const heroPoster = document.querySelector('.hero-poster-img');
+
   if (heroVideo) {
     heroVideo.addEventListener('timeupdate', function () {
       if (this.duration && this.currentTime >= this.duration - 2) {
@@ -15,9 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    /* iOS ignores the autoplay attribute in Low Power Mode and some Safari
-       versions — explicitly calling play() after load + on first touch fixes
-       the black-screen-until-tap issue. */
+    /* Fade out the poster image the moment video starts painting frames */
+    if (heroPoster) {
+      heroVideo.addEventListener('playing', () => {
+        heroPoster.classList.add('video-playing');
+      }, { once: true });
+    }
+
+    /* iOS ignores autoplay in Low Power Mode — explicit play() + touchstart fix */
     heroVideo.play().catch(() => {});
 
     const playOnTouch = () => {
