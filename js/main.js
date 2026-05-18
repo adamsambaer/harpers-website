@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ─── 14. MOBILE CAROUSEL: dots, swipe hint, tap-to-modal ─── */
-  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+  if (window.matchMedia('(max-width: 540px)').matches) {
     const eventCards = document.querySelectorAll('.event-card');
     const grid       = document.querySelector('.event-cards-grid');
     let touchStartX  = 0;
