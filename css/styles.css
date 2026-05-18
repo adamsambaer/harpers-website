@@ -1784,7 +1784,8 @@ ul { list-style: none; }
   background-position: center;
   transition: transform 0.7s var(--ease-out);
 }
-.event-card:hover .ecard-bg { transform: scale(1.07); }
+.event-card:hover .ecard-bg,
+.event-card.expanded .ecard-bg { transform: scale(1.07); }
 
 /* ─── Color/gradient overlay ─── */
 .ecard-overlay {
@@ -1793,7 +1794,8 @@ ul { list-style: none; }
   z-index: 1;
   transition: opacity 0.5s var(--ease-out);
 }
-.event-card:hover .ecard-overlay { opacity: 0; }
+.event-card:hover .ecard-overlay,
+.event-card.expanded .ecard-overlay { opacity: 0; }
 
 /* ─── Content layer ─── */
 .ecard-inner {
@@ -1805,7 +1807,8 @@ ul { list-style: none; }
   padding: 28px 24px 22px;
   transition: opacity 0.5s var(--ease-out);
 }
-.event-card:hover .ecard-inner { opacity: 0; }
+.event-card:hover .ecard-inner,
+.event-card.expanded .ecard-inner { opacity: 0; }
 
 .ecard-day {
   display: block;
@@ -1914,10 +1917,10 @@ ul { list-style: none; }
 }
 .card-tuesday .ecard-overlay {
   background: linear-gradient(to bottom,
-    rgba(238,215,130,0.42) 0%,
-    rgba(228,198,90,0.52) 38%,
-    rgba(210,168,40,0.76) 65%,
-    rgba(190,148,15,0.88) 100%);
+    rgba(238,215,130,0.82) 0%,
+    rgba(228,198,90,0.88) 38%,
+    rgba(210,168,40,0.93) 65%,
+    rgba(190,148,15,0.97) 100%);
 }
 .card-tuesday .ecard-day   { color: rgba(70,45,0,0.75); }
 .card-tuesday .ecard-name  { color: #160b00; }
@@ -2005,7 +2008,8 @@ ul { list-style: none; }
   .event-card {
     aspect-ratio: 3 / 2;
   }
-  .event-card:hover {
+  .event-card:hover,
+  .event-card.expanded {
     aspect-ratio: 9 / 16;
     transform: none;
     box-shadow: 0 16px 48px rgba(0,0,0,0.55);
