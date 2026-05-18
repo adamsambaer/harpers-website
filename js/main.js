@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function step(ts) {
       if (!start) start = ts;
       const progress = Math.min((ts - start) / duration, 1);
-      const value    = Math.round((1 - Math.pow(1 - progress, 4)) * target);
+      const value    = Math.round((1 - Math.pow(1 - progress, 3)) * target);
       el.textContent = prefix + value.toLocaleString() + suffix;
       if (progress < 1) requestAnimationFrame(step);
     }
