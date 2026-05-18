@@ -238,6 +238,19 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(step);
   }
 
+  /* Givesback counters: wait for the reveal transition to finish before counting */
+  document.querySelectorAll('.counter-block').forEach(block => {
+    const counterEl = block.querySelector('.counter');
+    if (!counterEl) return;
+
+    block.addEventListener('transitionend', function handler(e) {
+      if (e.propertyName !== 'opacity') return;
+      block.removeEventListener('transitionend', handler);
+      animateCounter(counterEl);
+    });
+  });
+
+  /* Standalone counters (e.g. gameday stats) keep the old observer */
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -247,7 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.5 });
 
-  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+  document.querySelectorAll('.counter:not(.counter-block .counter)').forEach(el =>
+    counterObserver.observe(el)
+  );
 
   /* ─── 10. SECTION VIDEOS: play only when visible, pause when scrolled away ─── */
   const sectionVideos = document.querySelectorAll('.video-item video');

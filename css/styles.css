@@ -1140,6 +1140,9 @@ ul { list-style: none; }
   color: var(--yellow);
   line-height: 1;
   letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  display: block;
+  min-height: 1em;
 }
 .counter-label {
   font-size: 0.72rem;
