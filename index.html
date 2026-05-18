@@ -44,6 +44,11 @@
   <link rel="icon" type="image/png" href="Photos/harpers-logo.png">
   <link rel="apple-touch-icon" href="Photos/harpers-logo.png">
 
+  <!-- ─── RESOURCE HINTS ─── -->
+  <link rel="preload" as="image" href="Photos/Harps_Feb11-28_no-logo_16x9.png" fetchpriority="high">
+  <link rel="preload" as="image" href="Photos/harpers-logo.png" fetchpriority="high">
+  <link rel="preload" as="video" href="Videos/BANNER.mp4" type="video/mp4">
+
   <!-- ─── FONTS / STYLES ─── -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -185,6 +190,7 @@
     <div class="hero-content">
       <div class="hero-logo logo-animate">
         <img src="Photos/harpers-logo.png" alt="Harper's Restaurant &amp; Brewpub  East Lansing's bar since 1997"
+          fetchpriority="high" decoding="async"
           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <span class="hero-logo-text">HARPER'S</span>
       </div>
@@ -342,10 +348,10 @@
       </div>
       <div class="about-photos reveal reveal-delay-1">
         <div class="about-photo about-photo-top">
-          <img src="Photos/Patio-52.jpg" alt="Friends dining on the Harper's patio in East Lansing, MI  string lights and pergola overhead" loading="lazy">
+          <img src="Photos/Patio-52.jpg" alt="Friends dining on the Harper's patio in East Lansing, MI  string lights and pergola overhead" loading="lazy" decoding="async">
         </div>
         <div class="about-photo about-photo-bottom">
-          <img src="Photos/DOD_ClubRush-03.jpg" alt="Club Rush nightclub at Harper's East Lansing  packed dance floor, fog cannons, concert lighting" loading="lazy">
+          <img src="Photos/DOD_ClubRush-03.jpg" alt="Club Rush nightclub at Harper's East Lansing  packed dance floor, fog cannons, concert lighting" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -375,11 +381,11 @@
     </div>
     <div class="patio-photos">
       <div class="patio-photo reveal">
-        <img src="Photos/Patio-07.jpg" alt="Harper's outdoor patio in East Lansing  string lights, fire pits, and the patio DJ booth" loading="lazy">
+        <img src="Photos/Patio-07.jpg" alt="Harper's outdoor patio in East Lansing  string lights, fire pits, and the patio DJ booth" loading="lazy" decoding="async">
         <div class="patio-photo-caption">String lights, fire pits, and the best patio DJ in East Lansing.</div>
       </div>
       <div class="patio-photo reveal reveal-delay-1">
-        <img src="Photos/Patio-52.jpg" alt="MSU students on the Harper's East Lansing patio at night  vine-draped pergola and string lights" loading="lazy">
+        <img src="Photos/Patio-52.jpg" alt="MSU students on the Harper's East Lansing patio at night  vine-draped pergola and string lights" loading="lazy" decoding="async">
         <div class="patio-photo-caption">Dinner crowd by seven. Loudest patio in town by eleven.</div>
       </div>
     </div>
@@ -411,7 +417,7 @@
 
     <div class="food-grid">
       <div class="food-item food-hero reveal">
-        <img src="Photos/Harps_Feb11-12.jpg" alt="Spinach pesto stone-fired pizza at Harper's Restaurant &amp; Brewpub in East Lansing  house-made pesto, goat and feta cheese" loading="lazy">
+        <img src="Photos/Harps_Feb11-12.jpg" alt="Spinach pesto stone-fired pizza at Harper's Restaurant &amp; Brewpub in East Lansing  house-made pesto, goat and feta cheese" loading="lazy" decoding="async">
         <div class="food-label">
           <span class="food-tag">Most Ordered</span>
           <strong class="food-name">Spinach Pesto Pizza</strong>
@@ -420,13 +426,13 @@
         </div>
       </div>
       <div class="food-item reveal reveal-delay-1">
-        <img src="Photos/Harps_Feb11-17.jpg" alt="Stone-fired pepperoni pizza from Harper's scratch kitchen in East Lansing" loading="lazy">
+        <img src="Photos/Harps_Feb11-17.jpg" alt="Stone-fired pepperoni pizza from Harper's scratch kitchen in East Lansing" loading="lazy" decoding="async">
       </div>
       <div class="food-item reveal reveal-delay-2">
-        <img src="Photos/Harps_Feb11-16.jpg" alt="Two stone-fired pizzas at Harper's East Lansing  pepperoni and spinach pesto sharing the table" loading="lazy">
+        <img src="Photos/Harps_Feb11-16.jpg" alt="Two stone-fired pizzas at Harper's East Lansing  pepperoni and spinach pesto sharing the table" loading="lazy" decoding="async">
       </div>
       <div class="food-item food-wide reveal reveal-delay-1">
-        <img src="Photos/Harps_Feb11-60.jpg" alt="Late-night app spread at Harper's East Lansing  fries, mozzarella sticks, and signature drinks" loading="lazy">
+        <img src="Photos/Harps_Feb11-60.jpg" alt="Late-night app spread at Harper's East Lansing  fries, mozzarella sticks, and signature drinks" loading="lazy" decoding="async">
         <div class="food-label food-label-overlay">
           <strong class="food-name">Fries, Apps, Late Nights.</strong>
         </div>
@@ -435,13 +441,13 @@
 
     <div class="food-drinks-strip">
       <div class="food-item reveal">
-        <img src="Photos/Harps_Feb11-28.jpg" alt="Bartender at Harper's East Lansing pouring a signature drink  Cat's Pajamas and Gypsy Vodka on the menu" loading="lazy">
+        <img src="Photos/Harps_Feb11-28.jpg" alt="Bartender at Harper's East Lansing pouring a signature drink  Cat's Pajamas and Gypsy Vodka on the menu" loading="lazy" decoding="async">
         <div class="food-label food-label-overlay">
           <strong class="food-name">Cat's Pajamas. Gypsy Vodkas. The Pours You Came For.</strong>
         </div>
       </div>
       <div class="food-item reveal reveal-delay-1">
-        <img src="Photos/Harps_Feb11-25.jpg" alt="MSU students cheersing drinks at Harper's bar in East Lansing" loading="lazy">
+        <img src="Photos/Harps_Feb11-25.jpg" alt="MSU students cheersing drinks at Harper's bar in East Lansing" loading="lazy" decoding="async">
       </div>
     </div>
 
@@ -461,7 +467,7 @@
   <!-- ═══════════════════════════════════════════════════ GAME DAY -->
   <section class="gameday" id="gameday">
     <div class="gameday-bg" aria-hidden="true">
-      <img src="Photos/Patio-77.jpg" alt="" class="gameday-img" loading="lazy">
+      <img src="Photos/Patio-77.jpg" alt="" class="gameday-img" loading="lazy" decoding="async">
       <div class="gameday-overlay"></div>
     </div>
     <div class="gameday-content">
@@ -562,7 +568,7 @@
   <!-- ═══════════════════════════════════════════════════ BREWERY -->
   <section class="brewery" id="brewery">
     <div class="brewery-bg" aria-hidden="true">
-      <img src="Photos/BREW TANKS.jpg" alt="" class="brewery-img" loading="lazy">
+      <img src="Photos/BREW TANKS.jpg" alt="" class="brewery-img" loading="lazy" decoding="async">
       <div class="brewery-overlay"></div>
     </div>
     <div class="brewery-content reveal">
@@ -623,19 +629,19 @@
     <div class="merch-grid">
       <div class="merch-item reveal">
         <div class="merch-img-wrap">
-          <img src="Photos/Harper's Merch-parents-6.jpg" alt="Harper's Restaurant &amp; Brewpub snapback hat  cream and green East Lansing merch" loading="lazy">
+          <img src="Photos/Harper's Merch-parents-6.jpg" alt="Harper's Restaurant &amp; Brewpub snapback hat  cream and green East Lansing merch" loading="lazy" decoding="async">
         </div>
         <div class="merch-caption">Harper's East Lansing Snapback</div>
       </div>
       <div class="merch-item reveal reveal-delay-1">
         <div class="merch-img-wrap">
-          <img src="Photos/Harper's Merch-parents-1.jpg" alt="Harper's East Lansing hats on the patio table  cream and green, Est. 1997" loading="lazy">
+          <img src="Photos/Harper's Merch-parents-1.jpg" alt="Harper's East Lansing hats on the patio table  cream and green, Est. 1997" loading="lazy" decoding="async">
         </div>
         <div class="merch-caption">Cream &amp; Green &nbsp;&middot;&nbsp; Est. 1997</div>
       </div>
       <div class="merch-item reveal reveal-delay-2">
         <div class="merch-img-wrap">
-          <img src="Photos/Harper's Merch-parents-28.jpg" alt="Harper's East Lansing crewneck sweatshirt  official Harper's Brewpub merch" loading="lazy">
+          <img src="Photos/Harper's Merch-parents-28.jpg" alt="Harper's East Lansing crewneck sweatshirt  official Harper's Brewpub merch" loading="lazy" decoding="async">
         </div>
         <div class="merch-caption">Harper's Crewneck &nbsp;&middot;&nbsp; East Lansing</div>
       </div>
