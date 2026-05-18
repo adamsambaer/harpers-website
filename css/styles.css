@@ -1143,6 +1143,7 @@ ul { list-style: none; }
   font-variant-numeric: tabular-nums;
   display: block;
   min-height: 1em;
+  white-space: nowrap;
 }
 .counter-label {
   font-size: 0.72rem;
