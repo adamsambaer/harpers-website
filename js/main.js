@@ -6,7 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ─── 0. HERO VIDEO: Loop 2 seconds early ─── */
+  /* ─── 0. HERO VIDEO: Autoplay + loop 2 seconds early ─── */
   const heroVideo = document.querySelector('.hero-video');
   if (heroVideo) {
     heroVideo.addEventListener('timeupdate', function () {
@@ -14,6 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
         this.currentTime = 0;
       }
     });
+
+    /* iOS ignores the autoplay attribute in Low Power Mode and some Safari
+       versions — explicitly calling play() after load + on first touch fixes
+       the black-screen-until-tap issue. */
+    heroVideo.play().catch(() => {});
+
+    const playOnTouch = () => {
+      heroVideo.play().catch(() => {});
+      document.removeEventListener('touchstart', playOnTouch);
+    };
+    document.addEventListener('touchstart', playOnTouch, { once: true });
   }
 
   /* ─── GATHER DOM REFS (single pass) ─── */
@@ -224,6 +235,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion) {
       el.textContent = prefix + target.toLocaleString() + suffix;
       return;
+    }
+
+    // Set text to final value, measure the block's rendered width, then lock it.
+    // This pins the CSS grid column to its maximum size before the count starts
+    // so the layout never shifts as the number grows.
+    const block = el.closest('.counter-block');
+    if (block) {
+      el.textContent = prefix + target.toLocaleString() + suffix;
+      block.style.minWidth = block.getBoundingClientRect().width + 'px';
+      el.textContent = prefix + '0' + suffix;
     }
 
     const duration = 2200;
