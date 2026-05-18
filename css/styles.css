@@ -1580,41 +1580,6 @@ ul { list-style: none; }
 }
 @media (max-width: 540px) {
   .thisweek-grid { grid-template-columns: 1fr; }
-
-  /* Single-column compact cards on mobile */
-  .event-cards-grid {
-    grid-template-columns: 1fr;
-    max-width: 92%;
-    gap: 10px;
-  }
-  .event-card {
-    aspect-ratio: 3 / 2;
-  }
-  .ecard-inner {
-    padding: 16px 18px 14px;
-  }
-  .ecard-day {
-    font-size: 0.72rem;
-    margin-bottom: 6px;
-  }
-  .ecard-name {
-    font-size: clamp(1.5rem, 7vw, 2rem);
-    flex: unset;
-    margin-bottom: 4px;
-  }
-  .ecard-divider {
-    margin: 10px 0 8px;
-  }
-  .ecard-deals {
-    font-size: 0.72rem;
-    gap: 3px;
-    margin-bottom: 10px;
-  }
-  .ecard-stamp {
-    width: 68px;
-    height: 68px;
-    font-size: 0.62rem;
-  }
 }
 .thisweek-card {
   background: var(--navy-dark);
@@ -2027,6 +1992,43 @@ ul { list-style: none; }
 .card-saturday .ecard-divider { background: rgba(245,197,24,0.3); opacity: 1; }
 .card-saturday .ecard-deals { color: rgba(255,251,244,0.82); }
 .card-saturday .ecard-stamp { background: var(--yellow); color: var(--navy-dark); }
+
+/* ─── Event cards: mobile single-column layout ─── */
+@media (max-width: 540px) {
+  .event-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 92%;
+    gap: 10px;
+  }
+  .event-card {
+    aspect-ratio: 3 / 2;
+  }
+  .ecard-inner {
+    padding: 16px 18px 14px;
+  }
+  .ecard-day {
+    font-size: 0.72rem;
+    margin-bottom: 6px;
+  }
+  .ecard-name {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+    flex: unset;
+    margin-bottom: 4px;
+  }
+  .ecard-divider {
+    margin: 10px 0 8px;
+  }
+  .ecard-deals {
+    font-size: 0.72rem;
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+  .ecard-stamp {
+    width: 68px;
+    height: 68px;
+    font-size: 0.62rem;
+  }
+}
 
 /* ════════════════════════════════════════════════════
    FOCUS STATES — visible keyboard navigation
