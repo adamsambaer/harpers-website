@@ -1559,7 +1559,7 @@ ul { list-style: none; }
 .drink-arm-wrap {
   position: absolute;
   left: -60px;
-  bottom: -80px;
+  bottom: -110px;
   width: 666px;
   pointer-events: none;
   z-index: 5;
