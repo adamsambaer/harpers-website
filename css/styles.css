@@ -1502,6 +1502,10 @@ ul { list-style: none; }
     to   { transform: translateX(0); }
   }
 
+  /* Hide hero video on mobile — iOS blocks autoplay and shows a black frame.
+     The hero-poster-img handles the background instead. */
+  .hero-video   { display: none; }
+
   .about-inner  { display: flex; flex-direction: column; gap: 48px; }
   .about-photos { display: flex; flex-direction: column; gap: 20px; width: 100%; }
   .about-photo  { width: 100%; aspect-ratio: 4 / 3; }

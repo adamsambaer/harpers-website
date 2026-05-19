@@ -21,21 +21,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    /* Fade out the poster image the moment video starts painting frames */
-    if (heroPoster) {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    /* Fade out the poster image the moment video starts painting frames.
+       Skip on mobile — video is hidden via CSS so the poster must stay. */
+    if (heroPoster && !isMobile) {
       heroVideo.addEventListener('playing', () => {
         heroPoster.classList.add('video-playing');
       }, { once: true });
     }
 
     /* iOS ignores autoplay in Low Power Mode — explicit play() + touchstart fix */
-    heroVideo.play().catch(() => {});
-
-    const playOnTouch = () => {
+    if (!isMobile) {
       heroVideo.play().catch(() => {});
-      document.removeEventListener('touchstart', playOnTouch);
-    };
-    document.addEventListener('touchstart', playOnTouch, { once: true });
+      const playOnTouch = () => {
+        heroVideo.play().catch(() => {});
+        document.removeEventListener('touchstart', playOnTouch);
+      };
+      document.addEventListener('touchstart', playOnTouch, { once: true });
+    }
   }
 
   /* ─── GATHER DOM REFS (single pass) ─── */
