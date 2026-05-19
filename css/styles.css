@@ -314,6 +314,8 @@ ul { list-style: none; }
   position: absolute;
   inset: 0;
   overflow: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .hero-img {
   width: 100%;
