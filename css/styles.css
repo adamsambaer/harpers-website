@@ -486,9 +486,8 @@ ul { list-style: none; }
    ════════════════════════════════════════════════════ */
 .about {
   background: var(--cream);
-  padding: var(--section-pad) 32px calc(var(--section-pad) + 120px);
+  padding: var(--section-pad) 32px calc(var(--section-pad) + 200px);
   position: relative;
-  overflow: hidden;
 }
 .about-inner {
   max-width: var(--container);
@@ -536,13 +535,13 @@ ul { list-style: none; }
 
 .about-jit-wrap {
   position: absolute;
-  right: 60px;
+  right: 0;
   bottom: 0;
-  width: 340px;
+  width: 460px;
   pointer-events: none;
   z-index: 5;
   will-change: transform;
-  transform: translateX(120%);
+  transform: translateX(100%);
   transition: transform 0.18s ease-out;
 }
 .about-jit {
@@ -1355,34 +1354,6 @@ ul { list-style: none; }
 .db-cream { background: var(--cream); }
 .db-dark  { background: var(--dark); }
 .db-navy  { background: var(--navy-dark); }
-
-/* Wave-following depth shadow — top edge of teal sections only.
-   drop-shadow traces the cream wave path, so shadow follows the curve. */
-.db-teal svg {
-  filter: drop-shadow(0 7px 14px rgba(0,0,0,0.22));
-}
-
-/* Bottom-edge shadow lives inside the teal section (wave-gradient SVG)
-   so it appears on teal, not on the cream section below. */
-.patio,
-.givesback {
-  position: relative;
-}
-.teal-btm-shadow {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 86px;
-  pointer-events: none;
-  z-index: 1;
-  line-height: 0;
-}
-.teal-btm-shadow svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 
 /* ─── DOT TEXTURE on cream sections ─── */
 .about, .food, .events, .merch, .findus {
