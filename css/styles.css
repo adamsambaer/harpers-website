@@ -525,7 +525,7 @@ ul { list-style: none; }
   position: absolute;
   right: 0;
   bottom: -80px;
-  width: 455px;
+  width: 491px;
   pointer-events: none;
   z-index: 5;
   will-change: transform;
