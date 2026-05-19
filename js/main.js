@@ -4,6 +4,10 @@
    Spotlight · Counters · Merch Tilt · Parallax
    ═══════════════════════════════════════════════════════════════ */
 
+/* Disable browser scroll restoration so refresh always lands at the top */
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ─── 0. HERO VIDEO: Autoplay + loop 2 seconds early ─── */
@@ -45,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const breweryImg      = document.querySelector('.brewery-img');
   const drinkArmWrap    = document.querySelector('.drink-arm-wrap');
   const thisweekSection = document.getElementById('this-week');
+  const aboutJitWrap    = document.querySelector('.about-jit-wrap');
+  const aboutSection    = document.getElementById('about');
 
   /* ─── 1. NAV MOBILE MENU ─── */
   function toggleMobileNav(open) {
@@ -76,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── 3. CONSOLIDATED SCROLL HANDLER (single RAF tick) ─── */
   let scrollTick  = false;
   let armExtended = false;
+  let jitExtended = false;
 
   function handleScroll() {
     const scrollY = window.scrollY;
@@ -110,6 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (rect.bottom >= 0 && rect.top <= wh) {
         breweryImg.style.transform = `scale(1.14) translateY(${(rect.top / wh) * 44}px)`;
       }
+    }
+
+    /* JIT photo scroll-driven reveal (slides in from right) */
+    if (aboutJitWrap && aboutSection) {
+      const rect     = aboutSection.getBoundingClientRect();
+      const scrolled = wh - rect.top;
+      const total    = wh + rect.height;
+      const progress = Math.max(0, Math.min(1, scrolled / total));
+
+      if (progress >= 0.55) jitExtended = true;
+      if (progress < 0.35)  jitExtended = false;
+
+      const jit = jitExtended ? 1 : progress < 0.35 ? 0 : (progress - 0.35) / 0.2;
+      aboutJitWrap.style.transform = `translateX(${(1 - jit) * 100}%)`;
     }
 
     /* Drink arm scroll-driven reveal */
