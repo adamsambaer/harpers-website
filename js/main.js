@@ -441,4 +441,86 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ─── 15. BOOKING FORM ─── */
+  const bookingForm    = document.getElementById('booking-form');
+  const bookingSuccess = document.getElementById('booking-success');
+  const bfError        = document.getElementById('bf-error');
+
+  if (bookingForm && bookingSuccess && bfError) {
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRe = /^\+?[\d\s\-\(\)\.]{7,20}$/;
+
+    /* Clear invalid state when user starts correcting a field */
+    bookingForm.querySelectorAll('input, select, textarea').forEach(field => {
+      field.addEventListener('input',  () => field.classList.remove('invalid'));
+      field.addEventListener('change', () => field.classList.remove('invalid'));
+    });
+
+    bookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      /* Reset error UI */
+      bfError.classList.remove('visible');
+      bookingForm.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+
+      /* Validate required fields */
+      let valid = true;
+      bookingForm.querySelectorAll('[required]').forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('invalid');
+          valid = false;
+        }
+      });
+
+      /* Email format */
+      const emailField = document.getElementById('bf-email');
+      if (emailField && emailField.value && !emailRe.test(emailField.value)) {
+        emailField.classList.add('invalid');
+        valid = false;
+      }
+
+      /* Phone format */
+      const phoneField = document.getElementById('bf-phone');
+      if (phoneField && phoneField.value && !phoneRe.test(phoneField.value)) {
+        phoneField.classList.add('invalid');
+        valid = false;
+      }
+
+      if (!valid) {
+        bfError.classList.add('visible');
+        /* Scroll to the first invalid field */
+        const firstInvalid = bookingForm.querySelector('.invalid');
+        if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      /* Disable submit while sending */
+      const submitBtn = bookingForm.querySelector('.bf-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(bookingForm.action, {
+          method: 'POST',
+          body: new FormData(bookingForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          bookingForm.style.display = 'none';
+          bookingSuccess.classList.add('visible');
+          bookingSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error('non-ok response');
+        }
+      } catch {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        bfError.textContent = 'Something went wrong. Please try again or call us at 517-333-4040.';
+        bfError.classList.add('visible');
+      }
+    });
+  }
+
 });

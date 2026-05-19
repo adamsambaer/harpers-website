@@ -549,7 +549,94 @@
           <a href="tel:5173334040">517-333-4040</a>
           &nbsp;&middot;&nbsp; Mon&ndash;Fri, 9am&ndash;5pm
         </p>
-        <a href="mailto:Harpersbrewpub@aol.com" class="btn btn-primary">Start Your Booking</a>
+      <!-- ═══════════════════════════════════════════════════ BOOKING FORM
+           FORMSPREE: Replace YOUR_FORM_ID in the action URL below with your
+           real Formspree form ID (e.g. https://formspree.io/f/xpznabcd).
+           Get yours at formspree.io — takes about 30 seconds to set up.
+      ═══════════════════════════════════════════════════════════════════ -->
+        <form
+          id="booking-form"
+          class="booking-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          novalidate
+        >
+          <!-- Honeypot spam trap (Formspree reads this automatically) -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="bf-error" id="bf-error" role="alert">Please check the highlighted fields and try again.</div>
+
+          <div class="bf-row">
+            <div class="bf-group">
+              <label for="bf-name">Full Name <span class="bf-req" aria-hidden="true">*</span></label>
+              <input type="text" id="bf-name" name="name" required placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="bf-group">
+              <label for="bf-email">Email Address <span class="bf-req" aria-hidden="true">*</span></label>
+              <input type="email" id="bf-email" name="email" required placeholder="you@example.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="bf-row">
+            <div class="bf-group">
+              <label for="bf-phone">Phone Number <span class="bf-req" aria-hidden="true">*</span></label>
+              <input type="tel" id="bf-phone" name="phone" required placeholder="(555) 555-5555" autocomplete="tel">
+            </div>
+            <div class="bf-group">
+              <label for="bf-event-type">Event Type <span class="bf-req" aria-hidden="true">*</span></label>
+              <select id="bf-event-type" name="event_type" required>
+                <option value="" disabled selected>Select event type</option>
+                <option value="Birthday Party">Birthday Party</option>
+                <option value="Greek Life / Fraternity">Greek Life / Fraternity</option>
+                <option value="Wedding After-Party">Wedding After-Party</option>
+                <option value="Corporate Event">Corporate Event</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bf-row">
+            <div class="bf-group">
+              <label for="bf-date">Event Date <span class="bf-req" aria-hidden="true">*</span></label>
+              <input type="date" id="bf-date" name="event_date" required>
+            </div>
+            <div class="bf-group">
+              <label for="bf-guests">Estimated Guest Count <span class="bf-req" aria-hidden="true">*</span></label>
+              <select id="bf-guests" name="guest_count" required>
+                <option value="" disabled selected>Select range</option>
+                <option value="Under 50">Under 50</option>
+                <option value="50–100">50–100</option>
+                <option value="100–200">100–200</option>
+                <option value="200–500">200–500</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bf-group">
+            <label for="bf-space">Which Space <span class="bf-req" aria-hidden="true">*</span></label>
+            <select id="bf-space" name="space" required>
+              <option value="" disabled selected>Select a space</option>
+              <option value="Upstairs Bar">Upstairs Bar</option>
+              <option value="The Patio">The Patio</option>
+              <option value="Club Rush Downstairs">Club Rush Downstairs</option>
+              <option value="Full Venue">Full Venue</option>
+            </select>
+          </div>
+
+          <div class="bf-group">
+            <label for="bf-notes">Additional Notes</label>
+            <textarea id="bf-notes" name="notes" rows="4" placeholder="Tell us about your event, any special requests…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary bf-submit">Send Booking Request</button>
+          <p class="bf-required-note">* Required fields</p>
+        </form>
+
+        <div class="booking-success" id="booking-success" aria-live="polite">
+          <div class="bs-check" aria-hidden="true">✓</div>
+          <h3 class="bs-title">Request Sent!</h3>
+          <p class="bs-body">Thanks &mdash; Shelly will be in touch within one business day. To reach her sooner, call <a href="tel:5173334040">517-333-4040</a>.</p>
+        </div>
       </div>
       <div class="events-pullquote reveal reveal-delay-1">
         <div class="pullquote-wrap">
