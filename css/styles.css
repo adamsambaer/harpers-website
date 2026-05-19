@@ -2110,29 +2110,19 @@ ul { list-style: none; }
 /* Right-column wrapper */
 .events-form-col { position: relative; }
 
-/* Form card — navy base, teal+yellow accent bar at top */
+/* Form card — cream, warm amber border */
 .booking-form {
-  background: var(--navy);
+  background: var(--cream);
   border-radius: var(--radius);
   padding: 28px;
-  border: 1px solid rgba(0,181,191,0.25);
-  color-scheme: dark;
-  position: relative;
-  overflow: hidden;
-}
-.booking-form::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(to right, var(--teal), var(--yellow));
+  border: 1.5px solid var(--yellow-dark);
 }
 
-/* Form header label */
+/* Form header */
 .bf-header {
-  padding-bottom: 16px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgba(0,181,191,0.2);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 2px solid var(--yellow-dark);
 }
 .bf-header-label {
   font-family: var(--font-body);
@@ -2140,7 +2130,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--yellow);
+  color: var(--red);
 }
 
 /* Two-column row within the form */
@@ -2155,7 +2145,7 @@ ul { list-style: none; }
 .bf-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   margin-bottom: 12px;
 }
 .bf-row .bf-group { margin-bottom: 0; }
@@ -2167,9 +2157,9 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--red);
 }
-.bf-req { color: var(--yellow); }
+.bf-req { color: var(--red); }
 
 /* Inputs, selects, textarea */
 .bf-group input,
@@ -2178,89 +2168,100 @@ ul { list-style: none; }
   font-family: var(--font-body);
   font-size: 0.88rem;
   font-weight: 400;
-  color: var(--cream);
-  background: rgba(0,181,191,0.07);
-  border: 1px solid rgba(0,181,191,0.22);
+  color: var(--charcoal);
+  background: #fff;
+  border: 1px solid rgba(212,160,18,0.45);
   border-radius: 8px;
-  padding: 10px 13px;
+  padding: 9px 13px;
   width: 100%;
   outline: none;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
   -webkit-appearance: none;
   appearance: none;
 }
 .bf-group input::placeholder,
 .bf-group textarea::placeholder {
-  color: rgba(255,251,244,0.25);
+  color: rgba(30,26,58,0.28);
 }
 .bf-group input:focus,
 .bf-group select:focus,
 .bf-group textarea:focus {
-  border-color: var(--teal);
-  background: rgba(0,181,191,0.13);
+  border-color: var(--yellow-dark);
+  box-shadow: 0 0 0 3px rgba(212,160,18,0.12);
 }
 .bf-group input.invalid,
 .bf-group select.invalid,
 .bf-group textarea.invalid {
   border-color: var(--red);
-  background: rgba(224,48,32,0.08);
+  box-shadow: 0 0 0 3px rgba(224,48,32,0.08);
 }
 
-/* Select: teal arrow + placeholder dimming */
+/* Select: amber chevron + placeholder color */
 .bf-group select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%2300B5BF' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23D4A012' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 13px center;
+  background-color: #fff;
   padding-right: 36px;
   cursor: pointer;
 }
 .bf-group select:invalid,
-.bf-group select option[value=""] { color: rgba(255,251,244,0.28); }
+.bf-group select option[value=""] { color: rgba(30,26,58,0.28); }
 .bf-group select option {
-  background: var(--navy);
-  color: var(--cream);
+  background: #fff;
+  color: var(--charcoal);
 }
 
-/* Date picker — nudge toward dark-mode styling */
+/* Date picker — keep browser default (light form) */
 .bf-group input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0.65) sepia(1) hue-rotate(145deg) saturate(1.2);
+  opacity: 0.45;
   cursor: pointer;
-  opacity: 0.8;
 }
 
-/* Textarea */
+/* Textarea — short to match left-column height */
 .bf-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 58px;
   line-height: 1.6;
 }
 
 /* Error banner */
 .bf-error {
   display: none;
-  background: rgba(224,48,32,0.12);
+  background: rgba(224,48,32,0.07);
   border: 1px solid var(--red);
   border-radius: 8px;
-  padding: 10px 13px;
-  color: var(--red-light);
+  padding: 9px 13px;
+  color: var(--red);
   font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 .bf-error.visible { display: block; }
 
-/* Submit — full width, teal */
-.bf-submit {
+/* Submit — outlined, dark; overrides btn-primary */
+.booking-form .bf-submit {
   width: 100%;
-  margin-top: 6px;
-  font-size: 0.82rem;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  background: transparent;
+  color: var(--charcoal);
+  border-color: rgba(30,26,58,0.3);
 }
+.booking-form .bf-submit:hover {
+  background: var(--navy);
+  color: var(--cream);
+  border-color: var(--navy);
+}
+.booking-form .bf-submit::before,
+.booking-form .bf-submit::after { display: none; }
 
 .bf-required-note {
   font-size: 0.6rem;
-  color: rgba(255,251,244,0.28);
+  color: var(--red);
+  opacity: 0.55;
   letter-spacing: 0.08em;
-  margin-top: 10px;
+  margin-top: 8px;
   text-align: center;
 }
 
