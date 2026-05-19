@@ -11,8 +11,7 @@ window.scrollTo(0, 0);
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ─── 0. HERO VIDEO: Autoplay + loop 2 seconds early ─── */
-  const heroVideo  = document.querySelector('.hero-video');
-  const heroPoster = document.querySelector('.hero-poster-img');
+  const heroVideo = document.querySelector('.hero-video');
 
   if (heroVideo) {
     heroVideo.addEventListener('timeupdate', function () {
@@ -20,15 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         this.currentTime = 0;
       }
     });
-
-    /* Poster fades out the moment video starts painting frames.
-       If play() is rejected (iOS Low Power Mode etc.), poster stays visible — correct fallback. */
-    if (heroPoster) {
-      heroVideo.addEventListener('playing', () => {
-        heroVideo.classList.add('is-playing');
-        heroPoster.classList.add('video-playing');
-      }, { once: true });
-    }
 
     /* Explicit play() covers browsers that require it despite the autoplay attribute.
        touchstart retry handles iOS Low Power Mode: user touch re-enables autoplay. */
