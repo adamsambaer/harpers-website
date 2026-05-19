@@ -308,6 +308,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  isolation: isolate;
   background: var(--charcoal) url('../Photos/Harps_Feb11-28_no-logo_16x9.png') center 30% / cover no-repeat;
 }
 .hero-bg {
@@ -1570,6 +1571,7 @@ ul { list-style: none; }
   background: var(--cream);
   padding: var(--section-pad) 16px;
   position: relative;
+  isolation: isolate;
 }
 
 /* ─── DRINK ARM ─── */
