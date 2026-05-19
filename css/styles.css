@@ -1560,7 +1560,7 @@ ul { list-style: none; }
   position: absolute;
   left: -60px;
   bottom: -80px;
-  width: 605px;
+  width: 666px;
   pointer-events: none;
   z-index: 5;
   will-change: transform;
