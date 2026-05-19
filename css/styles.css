@@ -1436,6 +1436,7 @@ ul { list-style: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ticker-track { animation: none; }
+  .hero-video { display: none; }
 }
 
 /* ─── GAME DAY heading underline: gradient ─── */
