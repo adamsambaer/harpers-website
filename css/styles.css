@@ -932,7 +932,7 @@ ul { list-style: none; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
-  align-items: start;
+  align-items: center;
 }
 .events-text .section-heading { margin-bottom: 24px; }
 .events-text p {
