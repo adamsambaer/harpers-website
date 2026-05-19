@@ -119,17 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    /* JIT photo scroll-driven reveal (slides in from right) */
-    if (aboutJitWrap && aboutSection) {
-      const rect     = aboutSection.getBoundingClientRect();
+    /* JIT photo scroll-driven reveal (slides in from right, parallel with drink arm) */
+    if (aboutJitWrap && thisweekSection) {
+      const rect     = thisweekSection.getBoundingClientRect();
       const scrolled = wh - rect.top;
       const total    = wh + rect.height;
       const progress = Math.max(0, Math.min(1, scrolled / total));
 
-      if (progress >= 0.55) jitExtended = true;
-      if (progress < 0.35)  jitExtended = false;
+      if (progress >= 0.75) jitExtended = true;
+      if (progress < 0.55)  jitExtended = false;
 
-      const jit = jitExtended ? 1 : progress < 0.35 ? 0 : (progress - 0.35) / 0.2;
+      const jit = jitExtended ? 1 : progress < 0.55 ? 0 : (progress - 0.55) / 0.2;
       aboutJitWrap.style.transform = `translateX(${(1 - jit) * 100}%)`;
     }
 
@@ -373,9 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.matchMedia('(max-width: 540px)').matches) {
     const eventCards = document.querySelectorAll('.event-card');
     const grid       = document.querySelector('.event-cards-grid');
-    let touchStartX  = 0;
-    let touchStartY  = 0;
-
     /* Modal */
     const modal    = document.createElement('div');
     const modalImg = document.createElement('div');
@@ -397,16 +394,19 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     }
 
+    let didScroll = false;
+
     eventCards.forEach(card => {
-      card.addEventListener('touchstart', e => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
+      card.addEventListener('touchstart', () => {
+        didScroll = false;
+      }, { passive: true });
+
+      card.addEventListener('touchmove', () => {
+        didScroll = true;
       }, { passive: true });
 
       card.addEventListener('touchend', e => {
-        const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
-        const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
-        if (dx > 8 || dy > 8) return; /* was a swipe, not a tap */
+        if (didScroll) return;
         e.preventDefault();
         openModal(card);
       });
