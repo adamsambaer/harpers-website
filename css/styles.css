@@ -538,7 +538,6 @@ ul { list-style: none; }
 .patio {
   background: var(--teal);
   padding: clamp(40px, 5vw, 72px) 32px var(--section-pad);
-  box-shadow: inset 0 18px 28px -10px rgba(0,0,0,0.2), inset 0 -18px 28px -10px rgba(0,0,0,0.2);
 }
 .patio-header {
   max-width: var(--container);
@@ -1120,7 +1119,6 @@ ul { list-style: none; }
 .givesback {
   background: var(--teal);
   padding: var(--section-pad) 32px;
-  box-shadow: inset 0 18px 28px -10px rgba(0,0,0,0.2), inset 0 -18px 28px -10px rgba(0,0,0,0.2);
 }
 .givesback-inner {
   max-width: var(--container);
@@ -1335,6 +1333,14 @@ ul { list-style: none; }
 .db-cream { background: var(--cream); }
 .db-dark  { background: var(--dark); }
 .db-navy  { background: var(--navy-dark); }
+
+/* Wave-following depth shadow on teal section borders only.
+   drop-shadow traces the filled SVG path shape, so the shadow
+   follows the curve rather than cutting straight across. */
+.db-teal svg,
+.teal-exit svg {
+  filter: drop-shadow(0 7px 14px rgba(0,0,0,0.22));
+}
 
 /* ─── DOT TEXTURE on cream sections ─── */
 .about, .food, .events, .merch, .findus {
