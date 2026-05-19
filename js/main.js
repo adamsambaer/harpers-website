@@ -118,10 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const total    = wh + rect.height;
       const progress = Math.max(0, Math.min(1, scrolled / total));
 
-      if (progress >= 0.55) jitExtended = true;
-      if (progress < 0.30)  jitExtended = false;
+      if (progress >= 0.75) jitExtended = true;
+      if (progress < 0.45)  jitExtended = false;
 
-      const jit = jitExtended ? 1 : progress < 0.30 ? 0 : (progress - 0.30) / 0.25;
+      const jit = jitExtended ? 1 : progress < 0.50 ? 0 : (progress - 0.50) / 0.25;
       aboutJitWrap.style.transform = `translateX(${(1 - jit) * 100}%)`;
     }
 
@@ -132,10 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const total    = wh + rect.height;
       const progress = Math.max(0, Math.min(1, scrolled / total));
 
-      if (progress >= 0.55) armExtended = true;
-      if (progress < 0.30)  armExtended = false;
+      if (progress >= 0.75) armExtended = true;
+      if (progress < 0.45)  armExtended = false;
 
-      const arm = armExtended ? 1 : progress < 0.30 ? 0 : (progress - 0.30) / 0.25;
+      const arm = armExtended ? 1 : progress < 0.50 ? 0 : (progress - 0.50) / 0.25;
       drinkArmWrap.style.transform = `translateX(${(1 - arm) * -110}%)`;
     }
 
