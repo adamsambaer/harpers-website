@@ -21,25 +21,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-    /* Fade out the poster image the moment video starts painting frames.
-       Skip on mobile — video is hidden via CSS so the poster must stay. */
-    if (heroPoster && !isMobile) {
+    /* Poster fades out the moment video starts painting frames.
+       If play() is rejected (iOS Low Power Mode etc.), poster stays visible — correct fallback. */
+    if (heroPoster) {
       heroVideo.addEventListener('playing', () => {
         heroPoster.classList.add('video-playing');
       }, { once: true });
     }
 
-    /* iOS ignores autoplay in Low Power Mode — explicit play() + touchstart fix */
-    if (!isMobile) {
+    /* Explicit play() covers browsers that require it despite the autoplay attribute.
+       touchstart retry handles iOS Low Power Mode: user touch re-enables autoplay. */
+    heroVideo.play().catch(() => {});
+    const playOnTouch = () => {
       heroVideo.play().catch(() => {});
-      const playOnTouch = () => {
-        heroVideo.play().catch(() => {});
-        document.removeEventListener('touchstart', playOnTouch);
-      };
-      document.addEventListener('touchstart', playOnTouch, { once: true });
-    }
+      document.removeEventListener('touchstart', playOnTouch);
+    };
+    document.addEventListener('touchstart', playOnTouch, { once: true });
   }
 
   /* ─── GATHER DOM REFS (single pass) ─── */
