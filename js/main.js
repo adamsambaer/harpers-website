@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
        If play() is rejected (iOS Low Power Mode etc.), poster stays visible — correct fallback. */
     if (heroPoster) {
       heroVideo.addEventListener('playing', () => {
+        heroVideo.classList.add('is-playing');
         heroPoster.classList.add('video-playing');
       }, { once: true });
     }
@@ -127,10 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const total    = wh + rect.height;
       const progress = Math.max(0, Math.min(1, scrolled / total));
 
-      if (progress >= 0.75) jitExtended = true;
-      if (progress < 0.55)  jitExtended = false;
+      if (progress >= 0.55) jitExtended = true;
+      if (progress < 0.30)  jitExtended = false;
 
-      const jit = jitExtended ? 1 : progress < 0.55 ? 0 : (progress - 0.55) / 0.2;
+      const jit = jitExtended ? 1 : progress < 0.30 ? 0 : (progress - 0.30) / 0.25;
       aboutJitWrap.style.transform = `translateX(${(1 - jit) * 100}%)`;
     }
 
@@ -141,10 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const total    = wh + rect.height;
       const progress = Math.max(0, Math.min(1, scrolled / total));
 
-      if (progress >= 0.75) armExtended = true;
-      if (progress < 0.55)  armExtended = false;
+      if (progress >= 0.55) armExtended = true;
+      if (progress < 0.30)  armExtended = false;
 
-      const arm = armExtended ? 1 : progress < 0.55 ? 0 : (progress - 0.55) / 0.2;
+      const arm = armExtended ? 1 : progress < 0.30 ? 0 : (progress - 0.30) / 0.25;
       drinkArmWrap.style.transform = `translateX(${(1 - arm) * -110}%)`;
     }
 
