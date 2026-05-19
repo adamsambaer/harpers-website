@@ -2106,55 +2106,83 @@ ul { list-style: none; }
 /* ════════════════════════════════════════════════════
    BOOKING FORM — Private Events intake
    ════════════════════════════════════════════════════ */
+
+/* Right-column wrapper */
+.events-form-col { position: relative; }
+
+/* Form card — navy base, teal+yellow accent bar at top */
 .booking-form {
-  margin-top: 32px;
-  background: var(--navy-dark);
+  background: var(--navy);
   border-radius: var(--radius);
-  padding: 32px;
-  border: 1px solid rgba(0,181,191,0.2);
+  padding: 28px;
+  border: 1px solid rgba(0,181,191,0.25);
   color-scheme: dark;
+  position: relative;
+  overflow: hidden;
+}
+.booking-form::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--teal), var(--yellow));
+}
+
+/* Form header label */
+.bf-header {
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0,181,191,0.2);
+}
+.bf-header-label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--yellow);
 }
 
 /* Two-column row within the form */
 .bf-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 /* Individual field group */
 .bf-group {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 .bf-row .bf-group { margin-bottom: 0; }
 
 /* Labels */
 .bf-group label {
   font-family: var(--font-body);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
 }
-.bf-req { color: var(--red-light); }
+.bf-req { color: var(--yellow); }
 
 /* Inputs, selects, textarea */
 .bf-group input,
 .bf-group select,
 .bf-group textarea {
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 400;
   color: var(--cream);
-  background: rgba(255,251,244,0.06);
-  border: 1px solid rgba(255,251,244,0.14);
+  background: rgba(0,181,191,0.07);
+  border: 1px solid rgba(0,181,191,0.22);
   border-radius: 8px;
-  padding: 11px 15px;
+  padding: 10px 13px;
   width: 100%;
   outline: none;
   transition: border-color 0.25s ease, background 0.25s ease;
@@ -2163,37 +2191,37 @@ ul { list-style: none; }
 }
 .bf-group input::placeholder,
 .bf-group textarea::placeholder {
-  color: rgba(255,251,244,0.28);
+  color: rgba(255,251,244,0.25);
 }
 .bf-group input:focus,
 .bf-group select:focus,
 .bf-group textarea:focus {
   border-color: var(--teal);
-  background: rgba(0,181,191,0.08);
+  background: rgba(0,181,191,0.13);
 }
 .bf-group input.invalid,
 .bf-group select.invalid,
 .bf-group textarea.invalid {
   border-color: var(--red);
-  background: rgba(224,48,32,0.07);
+  background: rgba(224,48,32,0.08);
 }
 
-/* Select: custom arrow + placeholder color */
+/* Select: teal arrow + placeholder dimming */
 .bf-group select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%2300B5BF' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 38px;
+  background-position: right 13px center;
+  padding-right: 36px;
   cursor: pointer;
 }
 .bf-group select:invalid,
 .bf-group select option[value=""] { color: rgba(255,251,244,0.28); }
 .bf-group select option {
-  background: var(--navy-dark);
+  background: var(--navy);
   color: var(--cream);
 }
 
-/* Date picker calendar icon — hint it toward dark mode */
+/* Date picker — nudge toward dark-mode styling */
 .bf-group input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0.65) sepia(1) hue-rotate(145deg) saturate(1.2);
   cursor: pointer;
@@ -2203,7 +2231,7 @@ ul { list-style: none; }
 /* Textarea */
 .bf-group textarea {
   resize: vertical;
-  min-height: 96px;
+  min-height: 80px;
   line-height: 1.6;
 }
 
@@ -2213,36 +2241,35 @@ ul { list-style: none; }
   background: rgba(224,48,32,0.12);
   border: 1px solid var(--red);
   border-radius: 8px;
-  padding: 11px 15px;
+  padding: 10px 13px;
   color: var(--red-light);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 .bf-error.visible { display: block; }
 
-/* Submit button — full width */
+/* Submit — full width, teal */
 .bf-submit {
   width: 100%;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 0.82rem;
 }
 
 .bf-required-note {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: rgba(255,251,244,0.28);
   letter-spacing: 0.08em;
-  margin-top: 12px;
+  margin-top: 10px;
   text-align: center;
 }
 
-/* Success state */
+/* Success card */
 .booking-success {
   display: none;
-  margin-top: 32px;
   background: var(--teal);
   border-radius: var(--radius);
-  padding: 40px 32px;
+  padding: 40px 28px;
   text-align: center;
 }
 .booking-success.visible { display: block; }
@@ -2250,7 +2277,7 @@ ul { list-style: none; }
 .bs-check {
   font-size: 2.2rem;
   color: var(--cream);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   font-weight: 900;
 }
 .bs-title {
@@ -2267,16 +2294,19 @@ ul { list-style: none; }
   color: rgba(255,251,244,0.88);
   line-height: 1.75;
 }
-.bs-body a {
-  color: var(--yellow);
-  font-weight: 700;
-}
+.bs-body a { color: var(--yellow); font-weight: 700; }
 .bs-body a:hover { color: var(--cream); }
+
+/* Pullquote row — centered below the 2-column grid */
+.events-pullquote-row {
+  max-width: 640px;
+  margin: 56px auto 0;
+}
 
 /* Booking form responsive */
 @media (max-width: 580px) {
   .bf-row { grid-template-columns: 1fr; }
-  .booking-form { padding: 24px 18px; }
+  .booking-form { padding: 22px 18px; }
 }
 
 /* ─── Card photo modal ─── */
