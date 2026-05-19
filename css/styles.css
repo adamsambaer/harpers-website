@@ -523,7 +523,7 @@ ul { list-style: none; }
   position: absolute;
   right: 0;
   bottom: -80px;
-  width: 414px;
+  width: 455px;
   pointer-events: none;
   z-index: 5;
   will-change: transform;
@@ -1558,7 +1558,7 @@ ul { list-style: none; }
   position: absolute;
   left: -60px;
   bottom: -80px;
-  width: 550px;
+  width: 605px;
   pointer-events: none;
   z-index: 5;
   will-change: transform;
