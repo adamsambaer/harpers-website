@@ -1484,7 +1484,6 @@ ul { list-style: none; }
     color: var(--yellow);
     padding: 12px 0;
   }
-  .nav-overlay { display: block; }
   .nav-hamburger { display: flex; }
 
   @keyframes slideInRight {
