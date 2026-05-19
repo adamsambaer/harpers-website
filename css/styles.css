@@ -486,7 +486,9 @@ ul { list-style: none; }
    ════════════════════════════════════════════════════ */
 .about {
   background: var(--cream);
-  padding: var(--section-pad) 32px;
+  padding: var(--section-pad) 32px calc(var(--section-pad) + 120px);
+  position: relative;
+  overflow: hidden;
 }
 .about-inner {
   max-width: var(--container);
@@ -496,7 +498,7 @@ ul { list-style: none; }
   gap: 80px;
   align-items: center;
 }
-.about-text .section-heading { margin-bottom: 28px; }
+.about-text .section-heading { margin-bottom: 52px; }
 .about-body {
   font-size: 1rem;
   line-height: 1.8;
@@ -531,6 +533,26 @@ ul { list-style: none; }
 .about-photo:hover img { transform: scale(1.04); }
 .about-photo-top img { object-position: center 60%; }
 .about-photo-bottom img { object-position: center 40%; }
+
+.about-jit-wrap {
+  position: absolute;
+  right: 60px;
+  bottom: 0;
+  width: 340px;
+  pointer-events: none;
+  z-index: 5;
+  will-change: transform;
+  transform: translateX(120%);
+  transition: transform 0.18s ease-out;
+}
+.about-jit {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(6px 16px 28px rgba(0,0,0,0.28));
+}
+@media (max-width: 900px) {
+  .about-jit-wrap { display: none; }
+}
 
 /* ════════════════════════════════════════════════════
    PATIO
@@ -1334,12 +1356,32 @@ ul { list-style: none; }
 .db-dark  { background: var(--dark); }
 .db-navy  { background: var(--navy-dark); }
 
-/* Wave-following depth shadow on teal section borders only.
-   drop-shadow traces the filled SVG path shape, so the shadow
-   follows the curve rather than cutting straight across. */
-.db-teal svg,
-.teal-exit svg {
+/* Wave-following depth shadow — top edge of teal sections only.
+   drop-shadow traces the cream wave path, so shadow follows the curve. */
+.db-teal svg {
   filter: drop-shadow(0 7px 14px rgba(0,0,0,0.22));
+}
+
+/* Bottom-edge shadow lives inside the teal section (wave-gradient SVG)
+   so it appears on teal, not on the cream section below. */
+.patio,
+.givesback {
+  position: relative;
+}
+.teal-btm-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 86px;
+  pointer-events: none;
+  z-index: 1;
+  line-height: 0;
+}
+.teal-btm-shadow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* ─── DOT TEXTURE on cream sections ─── */
