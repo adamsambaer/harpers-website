@@ -3,7 +3,7 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://harpers-brewpub.sanity.studio" }
+        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://*.sanity.studio" }
       ]
     },
     {
