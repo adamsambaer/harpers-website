@@ -1,17 +1,28 @@
 import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
-import { visionTool }    from '@sanity/vision';
-import { schemaTypes }   from './schemaTypes/index.js';
+import { structureTool }    from 'sanity/structure';
+import { visionTool }       from '@sanity/vision';
+import { presentationTool } from 'sanity/presentation';
+import { schemaTypes }      from './schemaTypes/index.js';
 
 export default defineConfig({
   name:    'harpers-brewpub',
   title:   "Harper's Restaurant & Brewpub",
 
-  // Fill these in after running: npx sanity@latest init
   projectId: process.env.SANITY_PROJECT_ID || 'h0rc5ul6',
   dataset:   process.env.SANITY_DATASET    || 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool(),
+    visionTool(),
+    presentationTool({
+      name:  'preview',
+      title: 'Live Preview',
+      previewUrl: {
+        origin: 'https://harpers-website.vercel.app',
+        previewMode: { enable: '/api/draft' },
+      },
+    }),
+  ],
 
   schema: { types: schemaTypes },
 });

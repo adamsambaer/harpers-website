@@ -34,20 +34,47 @@
 - Gives Back: $450,000+ donated to community causes
 
 ## Tech Stack
-- Stack: Static HTML/CSS/JS — no framework, no build tools
-- Files: index.html + css/styles.css + js/main.js
+- Framework: Astro 5 (static output — migrated from plain HTML on 2026-05-21)
+- CMS: Sanity v3 — project ID `h0rc5ul6`, dataset `production`
+- Sanity Studio: https://harpers-brewpub.sanity.studio
 - GitHub: https://github.com/adamsambaer/harpers-website
 - Hosting: Vercel — https://harpers-website.vercel.app
-- Deploy: Automatic on every `git push` to master
+- Deploy: Vercel auto-builds on every push to master via `npm run build`
+- Env vars (Vercel): SANITY_PROJECT_ID=h0rc5ul6
+
+## Key Files
+- `src/pages/index.astro` — full page, fetches Sanity at build time
+- `src/layouts/BaseLayout.astro` — all head/SEO/meta
+- `src/lib/sanity.js` — Sanity client and fetch functions
+- `studio/schemaTypes/weeklyEvent.js` — editable event card schema
+- `studio/schemaTypes/siteSettings.js` — phone, email, hours schema
+- `scripts/seed-events.js` — seeds all 6 event days into Sanity
+- `public/` — all static assets (Photos, Videos, Font, css, js)
+- `.env` — SANITY_PROJECT_ID + SANITY_TOKEN (not committed to git)
+- `HANDOFF.md` — full client handoff instructions
 
 ## Deployment Workflow
 ```
-# After any change:
+# After any code change:
 git add .
 git commit -m "describe the change"
 git push
-# Vercel auto-deploys in ~30 seconds
+# Vercel auto-deploys in ~60 seconds
+
+# After updating content in Sanity Studio:
+# Option A (manual): Go to Vercel dashboard → Deployments → Redeploy
+# Option B (auto): Set up Sanity webhook → Vercel deploy hook (not yet configured)
 ```
+
+## What Sanity Controls
+- Weekly Event cards (6 documents): day, event name, deals, badge text, sort order
+- Site Settings (1 document): phone, email, hours, Shelly's contact info
+
+## Account Ownership (transfer at handoff)
+- GitHub repo → transfer to Harper's GitHub account
+- Vercel project → Harper's creates account, redeploy from their GitHub
+- Sanity project → add Harper's email as Admin, remove Adam's account
+- All three transfers take under 1 hour total
 
 ## Design System
 
@@ -108,22 +135,32 @@ git push
 - Hover: overlay + text fade to opacity 0, background photo scales to 1.07
 - Photos: KARAOKE MONDAY #1.png, Honky Tonk.jpg, Half off Wednesday.jpg, Patio-07.jpg, Friday Night #1.jpg, Patio-77.jpg
 
-### Cup Pop-Out Animation
-- File: `Photos/Adobe Express - file (1).png` (cutout, white bg)
-- CSS: `position: absolute`, `left: -60px`, `bottom: -80px`, `width: 550px`
-- Blend: `mix-blend-mode: multiply` (white bg disappears into cream)
-- Shadow: `filter: drop-shadow(6px 12px 20px rgba(0,0,0,0.35))`
-- Animation: scroll-driven in main.js — tied to scroll progress through `.thisweek` section
-- Timing: hidden 0–55%, ramps in 55–75%, holds 75–85%, retracts 85–100%
-- Latch: stays fully extended when scrolling into next section, retracts on scroll-back-up
-- Hidden on ≤ 900px screens
+### Cup Pop-Out Animations
+- **Left blue cup** — `Photos/Adobe Express - file (1).png` (cutout, white bg)
+  - CSS: `position: absolute`, `left: -60px`, `bottom: -110px`, `width: 666px`
+  - Blend: `mix-blend-mode: multiply`
+- **Right red cup** — `Photos/JIT.png`
+  - CSS: `position: absolute`, `right: 0`, `bottom: -80px`, `width: 491px`
+- Both hidden on ≤ 900px screens
+- Scroll trigger: ramps in at progress 0.55–0.68, latches at 0.68, retracts below 0.50
+- Easing: smoothstep `t²(3−2t)` — quick and smooth
+- Driven by scroll progress through `.thisweek` section via RAF-throttled handler
 
-## Performance State (as of 2026-05-18)
+## Performance State (as of 2026-05-19)
 - Photos compressed: ~280MB → ~32MB ✓ (sharp, mozjpeg quality 72–80)
 - Videos compressed: ~183MB → ~36MB ✓ (ffmpeg H.264 CRF 28, faststart)
 - BANNER.mov converted to BANNER.mp4 ✓
-- Hero video: preload="metadata", poster set ✓
-- All below-fold images: loading="lazy" ✓
+- Hero video: preload="auto", #t=0.001 fragment on sources ✓
+- Hero poster img element removed — video plays directly, CSS background is fallback ✓
+- All below-fold images: loading="lazy" + decoding="async" ✓
+- Scroll handlers: consolidated into single RAF-throttled function ✓
+- Image pre-loader observer: 600px lookahead, upgrades lazy → eager before animate ✓
+- Section videos: play/pause based on viewport visibility ✓
+- Parallax targets: will-change: transform on gameday-img, brewery-img, patio imgs ✓
+- Reveal animation: 0.75s → 0.6s, translateY 40px → 28px ✓
+- vercel.json: 1-year cache on Photos/Videos/Font, no-cache on CSS/JS ✓
+- color-scheme: light only meta tag added ✓
+- hero-bg: transform translateZ(0) for GPU layer isolation ✓
 
 ## Image Assets (Photos/)
 - Merch: Harper's Merch-parents-1.jpg, -6.jpg, -28.jpg
@@ -141,9 +178,14 @@ git push
 - Unused (available): harpers-hero-pour-16x9.mp4
 
 ## Open Items
+- [ ] Add SANITY_TOKEN to .env → run `node scripts/seed-events.js` → publish all 6 days in Studio
+- [ ] Redeploy Vercel after publishing Sanity content (all 6 cards should reappear)
+- [ ] Set up Sanity webhook → Vercel deploy hook (auto-rebuild when content changes)
+- [ ] Deploy updated Sanity Studio with Presentation tool: `cd studio && npx sanity deploy`
+- [ ] Connect Formspree (real form ID — see HANDOFF.md)
+- [ ] Connect custom domain (harpersbrewpub.com) in Vercel
+- [ ] Transfer all accounts to Harper's at handoff (GitHub, Vercel, Sanity)
 - [ ] Download Bungee locally (currently loads from Google Fonts — needs internet)
 - [ ] Client review and sign-off on live site
-- [ ] Connect custom domain (harpersbrewpub.com) in Vercel when ready
 - [ ] Confirm whether existing harpersbrewpub.com inner pages stay or get rebuilt
 - [ ] Gallery / Instagram embed page decision
-- [ ] Get client confirmation on all copy and contact details
