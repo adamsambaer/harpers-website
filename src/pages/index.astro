@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { fetchWeeklyEvents, fetchSiteSettings } from '../lib/sanity.js';
+import { stegaClean } from '@sanity/client/stega';
 
 // ── Fallback data (used when Sanity is not yet connected) ──────────────────────
 const fallbackEvents = [
@@ -138,7 +139,7 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
       </div>
       <div class="event-cards-grid">
         {events.map((event: any, i: number) => (
-          <article class={`event-card card-${event.day.toLowerCase()} ${revealClass(i)}`}>
+          <article class={`event-card card-${stegaClean(event.day).toLowerCase()} ${revealClass(i)}`}>
             <div class="ecard-bg"></div>
             <div class="ecard-overlay"></div>
             <div class="ecard-inner">
