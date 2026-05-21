@@ -1,6 +1,12 @@
 {
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://harpers-brewpub.sanity.studio" }
+      ]
+    },
+    {
       "source": "/Photos/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
