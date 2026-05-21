@@ -1,10 +1,19 @@
-import { createClient } from '@sanity/client';
+import { createClient } from '@sanity/client/stega';
 
 const projectId = import.meta.env.SANITY_PROJECT_ID;
 const dataset   = import.meta.env.SANITY_DATASET || 'production';
 
 export const client = projectId
-  ? createClient({ projectId, dataset, useCdn: true, apiVersion: '2024-01-01' })
+  ? createClient({
+      projectId,
+      dataset,
+      useCdn: true,
+      apiVersion: '2024-01-01',
+      stega: {
+        enabled: true,
+        studioUrl: 'https://harpers-brewpub.sanity.studio',
+      },
+    })
   : null;
 
 export async function fetchWeeklyEvents() {
