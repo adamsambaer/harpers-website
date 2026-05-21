@@ -1,8 +1,8 @@
-import { defineConfig } from 'sanity';
-import { structureTool }    from 'sanity/structure';
-import { visionTool }       from '@sanity/vision';
-import { presentationTool } from 'sanity/presentation';
-import { schemaTypes }      from './schemaTypes/index.js';
+import { defineConfig }    from 'sanity';
+import { structureTool }   from 'sanity/structure';
+import { visionTool }      from '@sanity/vision';
+import { presentationTool } from '@sanity/presentation';
+import { schemaTypes }     from './schemaTypes/index.js';
 
 export default defineConfig({
   name:    'harpers-brewpub',
@@ -17,10 +17,7 @@ export default defineConfig({
     presentationTool({
       name:  'preview',
       title: 'Live Preview',
-      previewUrl: {
-        origin: 'https://harpers-website.vercel.app',
-        previewMode: { enable: '/api/draft' },
-      },
+      previewUrl: 'https://harpers-website.vercel.app',
     }),
   ],
 
