@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 
 // Load .env manually
 const env = readFileSync(new URL('../.env', import.meta.url), 'utf8');
-env.split('\n').forEach(line => {
+env.split(/\r?\n/).forEach(line => {
   const [key, ...val] = line.split('=');
   if (key && val.length) process.env[key.trim()] = val.join('=').trim();
 });
