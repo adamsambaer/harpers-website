@@ -1,0 +1,8 @@
+# robots.txt — Harper's Restaurant & Brewpub, East Lansing MI
+# https://www.harpersbrewpub.com/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.harpersbrewpub.com/sitemap.xml
