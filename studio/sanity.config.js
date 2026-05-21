@@ -8,7 +8,7 @@ export default defineConfig({
   title:   "Harper's Restaurant & Brewpub",
 
   // Fill these in after running: npx sanity@latest init
-  projectId: process.env.SANITY_PROJECT_ID || 'YOUR_PROJECT_ID',
+  projectId: process.env.SANITY_PROJECT_ID || 'h0rc5ul6',
   dataset:   process.env.SANITY_DATASET    || 'production',
 
   plugins: [structureTool(), visionTool()],

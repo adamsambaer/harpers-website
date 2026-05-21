@@ -50,6 +50,6 @@ export default {
   ],
   preview: {
     select: { title: 'day', subtitle: 'eventName' },
-    prepare: ({ title, subtitle }) => ({ title: `${title}: ${subtitle}` }),
+    prepare: ({ title, subtitle }) => ({ title: `${title || 'New Event'}${subtitle ? ': ' + subtitle : ''}` }),
   },
 };
