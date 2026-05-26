@@ -331,6 +331,9 @@ ul { list-style: none; }
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
+@media (max-width: 900px) {
+  .hero-video { display: none; }
+}
 @keyframes kenBurns {
   from { transform: scale(1.02) translate(0, 0); }
   to   { transform: scale(1.06) translate(-0.8%, 0.3%); }
