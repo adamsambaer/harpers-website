@@ -332,6 +332,10 @@
       <div class="thisweek-cta reveal">
         <a href="https://www.harpersbrewpub.com/events" target="_blank" rel="noopener" class="btn btn-primary">Full Event Calendar</a>
       </div>
+      <div class="ll-cta-wrap ll-cta-events reveal">
+        <span class="ll-label">Already on LineLeap? Skip the wait.</span>
+        <a href="https://tickets.lineleap.com/venues/bdA93uf8y8KKU2eoZvLv" target="_blank" rel="noopener" class="ll-btn">Skip the Line Any Night &rarr;</a>
+      </div>
     </div>
     <div class="drink-arm-wrap" aria-hidden="true">
       <img src="Photos/Adobe Express - file (1).png" class="drink-arm" alt="">
@@ -495,6 +499,9 @@
           <span class="stat-label">doors every game day</span>
         </div>
       </div>
+      <div class="ll-cta-wrap ll-cta-gameday reveal reveal-delay-3">
+        <a href="https://tickets.lineleap.com/venues/bdA93uf8y8KKU2eoZvLv" target="_blank" rel="noopener" class="ll-btn">&#127903; Game Day Pass &mdash; No Wait &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -518,7 +525,11 @@
       <p class="nightlife-sub reveal reveal-delay-2">Downstairs is Club Rush  East Lansing's nightclub. Touring DJ talent, fog cannons, concert-grade lighting, and a floor that doesn't quit until last call. Names like Ian Asher, D.O.D., and Sidequest on the main stage. The nights between, we throw ourselves.</p>
       <div class="nightlife-ctas reveal reveal-delay-3">
         <a href="https://www.harpersbrewpub.com/events" target="_blank" rel="noopener" class="btn btn-light">See What's Booked</a>
-        <a href="https://harpersvip.com/" target="_blank" rel="noopener" class="btn btn-ghost-light">Skip the Line</a>
+        <a href="https://tickets.lineleap.com/venues/bdA93uf8y8KKU2eoZvLv" target="_blank" rel="noopener" class="btn btn-ghost-light">Skip the Line</a>
+      </div>
+      <div class="ll-cta-wrap ll-cta-clubrush reveal reveal-delay-3">
+        <a href="https://tickets.lineleap.com/venues/bdA93uf8y8KKU2eoZvLv" target="_blank" rel="noopener" class="ll-btn ll-btn-large ll-btn-glow">Buy Tickets &amp; Skip the Line &rarr;</a>
+        <p class="ll-powered">Powered by LineLeap &nbsp;&middot;&nbsp; Opens in app</p>
       </div>
     </div>
 
@@ -932,6 +943,77 @@
     </div>
   </footer>
 
+  <!-- ─── LINELEAP STYLES ─── -->
+  <style>
+    /* ── Base button ── */
+    .ll-cta-wrap { text-align: center; padding: 24px 16px 0; }
+    .ll-label { display: block; font-size: 0.8rem; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .ll-cta-events .ll-label { color: rgba(27, 20, 84, 0.5); }
+    .ll-cta-gameday { padding-top: 32px; }
+    .ll-cta-clubrush { padding-top: 32px; }
+    .ll-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #00B5BF; color: #fff; font-weight: 700; font-size: 1rem;
+      text-decoration: none; padding: 14px 28px; border-radius: 8px;
+      min-height: 48px; border: none; cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ll-btn:hover { background: #009ba4; transform: scale(1.02); color: #fff; text-decoration: none; }
+    .ll-btn-large { font-size: 1.15rem; padding: 18px 36px; min-height: 56px; }
+    .ll-btn-glow { box-shadow: 0 0 24px rgba(0,181,191,0.45), 0 4px 16px rgba(0,181,191,0.25); }
+    .ll-btn-glow:hover { box-shadow: 0 0 36px rgba(0,181,191,0.6), 0 6px 20px rgba(0,181,191,0.35); }
+    .ll-powered { font-size: 0.75rem; color: rgba(255,251,244,0.45); margin: 10px 0 0; letter-spacing: 0.03em; }
+
+    /* ── Sticky mobile bar ── */
+    .ll-sticky-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 9999; background: #00B5BF; align-items: center;
+      min-height: 56px; transform: translateY(100%);
+      transition: transform 0.35s ease;
+    }
+    .ll-sticky-bar.ll-visible { transform: translateY(0); }
+    .ll-sticky-link {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; padding: 0 16px; min-height: 56px;
+    }
+    .ll-sticky-link:hover { color: #fff; text-decoration: none; }
+    .ll-sticky-dismiss {
+      background: transparent; border: none; color: rgba(255,255,255,0.8);
+      font-size: 1.1rem; cursor: pointer; padding: 0 16px;
+      min-height: 56px; min-width: 44px;
+      display: flex; align-items: center; justify-content: center; line-height: 1;
+    }
+    .ll-sticky-dismiss:hover { color: #fff; }
+    @media (max-width: 768px) { .ll-sticky-bar { display: flex; } }
+    @media (max-width: 400px) { .ll-btn-large { font-size: 1rem; padding: 16px 22px; } }
+  </style>
+
+  <!-- ─── LINELEAP STICKY MOBILE BAR ─── -->
+  <div class="ll-sticky-bar" id="ll-sticky-bar" aria-label="Skip the line at Harper's via LineLeap">
+    <a href="https://tickets.lineleap.com/venues/bdA93uf8y8KKU2eoZvLv" target="_blank" rel="noopener" class="ll-sticky-link">&#127903; Skip the Line Tonight &mdash; Harper&rsquo;s on LineLeap</a>
+    <button class="ll-sticky-dismiss" id="ll-sticky-dismiss" aria-label="Dismiss">&times;</button>
+  </div>
+
   <script src="js/main.js?v=12"></script>
+  <script>
+    (function () {
+      if (sessionStorage.getItem('ll-bar-dismissed')) return;
+      var bar = document.getElementById('ll-sticky-bar');
+      var btn = document.getElementById('ll-sticky-dismiss');
+      if (!bar || !btn) return;
+      function onScroll() {
+        if (window.scrollY > 300) {
+          bar.classList.add('ll-visible');
+          window.removeEventListener('scroll', onScroll);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      btn.addEventListener('click', function () {
+        bar.classList.remove('ll-visible');
+        sessionStorage.setItem('ll-bar-dismissed', '1');
+      });
+    }());
+  </script>
 </body>
 </html>
