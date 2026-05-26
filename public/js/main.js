@@ -10,20 +10,10 @@ window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ─── 0. HERO VIDEO: Desktop only — inject sources and play ─── */
+  /* ─── 0. HERO VIDEO: Autoplay + loop 2 seconds early ─── */
   const heroVideo = document.querySelector('.hero-video');
 
-  if (heroVideo && window.innerWidth > 900) {
-    const s1 = document.createElement('source');
-    s1.src = '/Videos/BANNER.mp4#t=0.001';
-    s1.type = 'video/mp4';
-    const s2 = document.createElement('source');
-    s2.src = '/Videos/harpers-hero-pour-16x9.mp4#t=0.001';
-    s2.type = 'video/mp4';
-    heroVideo.appendChild(s1);
-    heroVideo.appendChild(s2);
-    heroVideo.load();
-
+  if (heroVideo) {
     heroVideo.addEventListener('timeupdate', function () {
       if (this.duration && this.currentTime >= this.duration - 2) {
         this.currentTime = 0;

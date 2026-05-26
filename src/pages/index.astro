@@ -99,8 +99,9 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
   <!-- ═══════════════════════════════════════════════════ HERO -->
   <section class="hero" id="hero" aria-label="Harper's  East Lansing's Favorite Bar Since 1997">
     <div class="hero-bg">
-      <video class="hero-img hero-video" autoplay muted loop playsinline preload="none" poster="/Photos/Harps_Feb11-28_no-logo_16x9.webp" aria-hidden="true">
-        <!-- Sources injected by JS on desktop only — mobile gets the poster image -->
+      <video class="hero-img hero-video" autoplay muted loop playsinline preload="metadata" poster="/Photos/Harps_Feb11-28_no-logo_16x9.webp" aria-hidden="true">
+        <source src="/Videos/BANNER.mp4#t=0.001" type="video/mp4" media="(min-width: 901px)">
+        <source src="/Videos/harpers-hero-pour-16x9.mp4#t=0.001" type="video/mp4" media="(min-width: 901px)">
       </video>
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
@@ -291,10 +292,7 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
     </div>
     <div class="food-drinks-strip">
       <div class="food-item reveal">
-        <picture>
-          <source srcset="/Photos/Harps_Feb11-28.webp" type="image/webp">
-          <img src="/Photos/Harps_Feb11-28.jpg" alt="Bartender at Harper's East Lansing pouring a signature drink  Cat's Pajamas and Gypsy Vodka on the menu" loading="lazy" decoding="async" width="400" height="600">
-        </picture>
+        <img src="/Photos/Harps_Feb11-28.jpg" alt="Bartender at Harper's East Lansing pouring a signature drink  Cat's Pajamas and Gypsy Vodka on the menu" loading="lazy" decoding="async" width="400" height="600">
         <div class="food-label food-label-overlay">
           <strong class="food-name">Cat's Pajamas. Gypsy Vodkas. The Pours You Came For.</strong>
         </div>
@@ -356,7 +354,7 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
   <section class="nightlife" id="nightlife">
     <div class="nightlife-slides" id="nightlife-slides" aria-hidden="true">
       <div class="slide active" style="background-image:url('/Photos/DOD_ClubRush-03.webp')"></div>
-      <div class="slide" style="background-image:url('/Photos/Deerock @ Harper\'s.webp')"></div>
+      <div class="slide" style="background-image:url('/Photos/Deerock @ Harper\'s.jpg')"></div>
       <div class="slide" style="background-image:url('/Photos/Patio-74.webp')"></div>
       <div class="slide" style="background-image:url('/Photos/Patio-87.webp')"></div>
     </div>
