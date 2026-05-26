@@ -148,7 +148,75 @@
 </head>
 <body>
   <slot />
+  <!-- ─── LINELEAP STYLES ─── -->
+  <style is:inline>
+    .ll-cta-wrap { text-align: center; padding: 24px 16px 0; }
+    .ll-label { display: block; font-size: 0.8rem; margin: 0 0 10px; letter-spacing: 0.04em; }
+    .ll-cta-events .ll-label { color: rgba(27,20,84,0.5); }
+    .ll-cta-gameday { padding-top: 32px; }
+    .ll-cta-clubrush { padding-top: 32px; }
+    .ll-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #00B5BF; color: #fff; font-weight: 700; font-size: 1rem;
+      text-decoration: none; padding: 14px 28px; border-radius: 8px;
+      min-height: 48px; border: none; cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ll-btn:hover { background: #009ba4; transform: scale(1.02); color: #fff; text-decoration: none; }
+    .ll-btn-large { font-size: 1.15rem; padding: 18px 36px; min-height: 56px; }
+    .ll-btn-glow { box-shadow: 0 0 24px rgba(0,181,191,0.45), 0 4px 16px rgba(0,181,191,0.25); }
+    .ll-btn-glow:hover { box-shadow: 0 0 36px rgba(0,181,191,0.6), 0 6px 20px rgba(0,181,191,0.35); }
+    .ll-powered { font-size: 0.75rem; color: rgba(255,251,244,0.45); margin: 10px 0 0; letter-spacing: 0.03em; }
+    .ll-sticky-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 9999; background: #00B5BF; align-items: center;
+      min-height: 56px; transform: translateY(100%);
+      transition: transform 0.35s ease;
+    }
+    .ll-sticky-bar.ll-visible { transform: translateY(0); }
+    .ll-sticky-link {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; padding: 0 16px; min-height: 56px;
+    }
+    .ll-sticky-link:hover { color: #fff; text-decoration: none; }
+    .ll-sticky-dismiss {
+      background: transparent; border: none; color: rgba(255,255,255,0.8);
+      font-size: 1.1rem; cursor: pointer; padding: 0 16px;
+      min-height: 56px; min-width: 44px;
+      display: flex; align-items: center; justify-content: center; line-height: 1;
+    }
+    .ll-sticky-dismiss:hover { color: #fff; }
+    @media (max-width: 768px) { .ll-sticky-bar { display: flex; } }
+    @media (max-width: 400px) { .ll-btn-large { font-size: 1rem; padding: 16px 22px; } }
+  </style>
+
+  <!-- ─── LINELEAP STICKY MOBILE BAR ─── -->
+  <div class="ll-sticky-bar" id="ll-sticky-bar" aria-label="Skip the line at Harper's via LineLeap">
+    <a href="https://tickets.lineleap.com/venues/bdA93uf8y8KKU2eoZvLv" target="_blank" rel="noopener" class="ll-sticky-link">&#127903; Skip the Line Tonight &mdash; Harper&rsquo;s on LineLeap</a>
+    <button class="ll-sticky-dismiss" id="ll-sticky-dismiss" aria-label="Dismiss">&times;</button>
+  </div>
+
   <script is:inline src="/js/main.js?v=13"></script>
+  <script is:inline>
+    (function () {
+      if (sessionStorage.getItem('ll-bar-dismissed')) return;
+      var bar = document.getElementById('ll-sticky-bar');
+      var btn = document.getElementById('ll-sticky-dismiss');
+      if (!bar || !btn) return;
+      function onScroll() {
+        if (window.scrollY > 300) {
+          bar.classList.add('ll-visible');
+          window.removeEventListener('scroll', onScroll);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      btn.addEventListener('click', function () {
+        bar.classList.remove('ll-visible');
+        sessionStorage.setItem('ll-bar-dismissed', '1');
+      });
+    }());
+  </script>
   <script>
     import { enableVisualEditing } from '@sanity/visual-editing';
     if (window !== window.parent) {
