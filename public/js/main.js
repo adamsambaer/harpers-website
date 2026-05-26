@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchstart', playOnTouch, { once: true });
   }
 
+  /* ─── IMAGE LAZY FADE-IN ─── */
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    img.classList.add('lazy-img');
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('img-loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('img-loaded'));
+    }
+  });
+
   /* ─── GATHER DOM REFS (single pass) ─── */
   const nav             = document.getElementById('site-nav');
   const hamburger       = document.getElementById('nav-hamburger');
@@ -227,6 +237,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (slides.length > 1) startSlideshow();
+
+  /* ─── NIGHTLIFE BACKGROUNDS: defer slides 2-4 until section nears viewport ─── */
+  const nightlifeSlidesContainer = document.getElementById('nightlife-slides');
+  if (nightlifeSlidesContainer) {
+    const bgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          nightlifeSlidesContainer.querySelectorAll('.slide[data-bg]').forEach(slide => {
+            slide.style.backgroundImage = `url("${slide.dataset.bg}")`;
+          });
+          bgObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px 400px 0px' });
+    bgObserver.observe(nightlifeSlidesContainer);
+  }
 
   /* ─── 8. NIGHTLIFE SPOTLIGHT: follows mouse ─── */
   const nightlifeSection = document.querySelector('.nightlife');

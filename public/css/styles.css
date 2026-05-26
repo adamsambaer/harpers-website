@@ -2391,6 +2391,19 @@ ul { list-style: none; }
   border-radius: 4px;
 }
 
+/* ─── LAZY IMAGE FADE-IN ─── */
+.lazy-img {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.lazy-img.img-loaded {
+  opacity: 1;
+}
+.about-photo,
+.patio-photo {
+  background: var(--charcoal);
+}
+
 /* ════════════════════════════════════════════════════
    REDUCED MOTION — respect system preference
    ════════════════════════════════════════════════════ */
@@ -2431,5 +2444,9 @@ ul { list-style: none; }
   }
   .merch-item:hover {
     transform: none;
+  }
+  .lazy-img {
+    opacity: 1;
+    transition: none;
   }
 }
