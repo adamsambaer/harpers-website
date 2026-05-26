@@ -34,12 +34,14 @@
 - Gives Back: $450,000+ donated to community causes
 
 ## Tech Stack
-- Framework: Astro 5 (static output — migrated from plain HTML on 2026-05-21)
+- Framework: Astro 5 (static output) + @astrojs/react (required by visual-editing, no React components rendered)
 - CMS: Sanity v3 — project ID `h0rc5ul6`, dataset `production`
-- Sanity Studio: https://harpers-brewpub.sanity.studio
+- CMS client: @sanity/client@7 with stega encoding (src/lib/sanity.js imports from @sanity/client/stega)
+- Visual editing: @sanity/visual-editing@2.15.4 — enableVisualEditing() in BaseLayout.astro
+- Sanity Studio: https://harpers-brewpub.sanity.studio (redeployed 2026-05-21)
 - GitHub: https://github.com/adamsambaer/harpers-website
 - Hosting: Vercel — https://harpers-website.vercel.app
-- Deploy: Vercel auto-builds on every push to master via `npm run build`
+- Deploy: Vercel auto-builds on every push to master AND on Sanity publish (webhook live)
 - Env vars (Vercel): SANITY_PROJECT_ID=h0rc5ul6
 
 ## Key Files
@@ -178,14 +180,24 @@ git push
 - Unused (available): harpers-hero-pour-16x9.mp4
 
 ## Open Items
-- [ ] Add SANITY_TOKEN to .env → run `node scripts/seed-events.js` → publish all 6 days in Studio
-- [ ] Redeploy Vercel after publishing Sanity content (all 6 cards should reappear)
-- [ ] Set up Sanity webhook → Vercel deploy hook (auto-rebuild when content changes)
-- [ ] Deploy updated Sanity Studio with Presentation tool: `cd studio && npx sanity deploy`
+- [ ] Verify Presentation tool live preview fully works in Studio (open Live Preview tab, confirm overlays activate inside Studio only)
+- [ ] Add image field to weeklyEvent schema — drag-and-drop photo uploads per event card
 - [ ] Connect Formspree (real form ID — see HANDOFF.md)
 - [ ] Connect custom domain (harpersbrewpub.com) in Vercel
-- [ ] Transfer all accounts to Harper's at handoff (GitHub, Vercel, Sanity)
 - [ ] Download Bungee locally (currently loads from Google Fonts — needs internet)
 - [ ] Client review and sign-off on live site
+- [ ] Transfer all accounts to Harper's at handoff (GitHub, Vercel, Sanity)
 - [ ] Confirm whether existing harpersbrewpub.com inner pages stay or get rebuilt
 - [ ] Gallery / Instagram embed page decision
+
+## Completed
+- [x] Seeded all 6 weekly event cards with real content
+- [x] Sanity webhook → Vercel deploy hook (auto-rebuild on Sanity publish)
+- [x] Studio deployed with Presentation tool (Live Preview tab)
+- [x] React added to Astro, @sanity/visual-editing@2.15.4 wired up
+- [x] Stega encoding on Sanity client (field metadata in fetched strings)
+- [x] Fixed comlink mismatch — both sides use presentation-comlink@1.0.33
+- [x] Fixed studio import (sanity/presentation, not deprecated @sanity/presentation)
+- [x] Removed CSP frame-ancestors (was blocking Studio iframe)
+- [x] Fixed stega chars corrupting card CSS class names (stegaClean on event.day)
+- [x] Fixed visual editing overlays showing on public site (iframe guard)

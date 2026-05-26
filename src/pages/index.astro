@@ -99,9 +99,8 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
   <!-- ═══════════════════════════════════════════════════ HERO -->
   <section class="hero" id="hero" aria-label="Harper's  East Lansing's Favorite Bar Since 1997">
     <div class="hero-bg">
-      <video class="hero-img hero-video" autoplay muted loop playsinline preload="metadata" poster="/Photos/Harps_Feb11-28_no-logo_16x9.png" aria-hidden="true">
-        <source src="/Videos/BANNER.mp4#t=0.001" type="video/mp4">
-        <source src="/Videos/harpers-hero-pour-16x9.mp4#t=0.001" type="video/mp4">
+      <video class="hero-img hero-video" autoplay muted loop playsinline preload="none" poster="/Photos/Harps_Feb11-28_no-logo_16x9.webp" aria-hidden="true">
+        <!-- Sources injected by JS on desktop only — mobile gets the poster image -->
       </video>
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
@@ -177,10 +176,16 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
       </div>
       <div class="about-photos reveal reveal-delay-1">
         <div class="about-photo about-photo-top">
-          <img src="/Photos/Patio-52.jpg" alt="Friends dining on the Harper's patio in East Lansing, MI  string lights and pergola overhead" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="/Photos/Patio-52.webp" type="image/webp">
+            <img src="/Photos/Patio-52.jpg" alt="Friends dining on the Harper's patio in East Lansing, MI  string lights and pergola overhead" loading="lazy" decoding="async" width="400" height="600">
+          </picture>
         </div>
         <div class="about-photo about-photo-bottom">
-          <img src="/Photos/DOD_ClubRush-03.jpg" alt="Club Rush nightclub at Harper's East Lansing  packed dance floor, fog cannons, concert lighting" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="/Photos/DOD_ClubRush-03.webp" type="image/webp">
+            <img src="/Photos/DOD_ClubRush-03.jpg" alt="Club Rush nightclub at Harper's East Lansing  packed dance floor, fog cannons, concert lighting" loading="lazy" decoding="async" width="400" height="600">
+          </picture>
         </div>
       </div>
     </div>
@@ -210,11 +215,17 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
     </div>
     <div class="patio-photos">
       <div class="patio-photo reveal">
-        <img src="/Photos/Patio-07.jpg" alt="Harper's outdoor patio in East Lansing  string lights, fire pits, and the patio DJ booth" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Patio-07.webp" type="image/webp">
+          <img src="/Photos/Patio-07.jpg" alt="Harper's outdoor patio in East Lansing  string lights, fire pits, and the patio DJ booth" loading="lazy" decoding="async" width="600" height="900">
+        </picture>
         <div class="patio-photo-caption">String lights, fire pits, and the best patio DJ in East Lansing.</div>
       </div>
       <div class="patio-photo reveal reveal-delay-1">
-        <img src="/Photos/Patio-52.jpg" alt="MSU students on the Harper's East Lansing patio at night  vine-draped pergola and string lights" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Patio-52.webp" type="image/webp">
+          <img src="/Photos/Patio-52.jpg" alt="MSU students on the Harper's East Lansing patio at night  vine-draped pergola and string lights" loading="lazy" decoding="async" width="600" height="900">
+        </picture>
         <div class="patio-photo-caption">Dinner crowd by seven. Loudest patio in town by eleven.</div>
       </div>
     </div>
@@ -245,7 +256,10 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
     </div>
     <div class="food-grid">
       <div class="food-item food-hero reveal">
-        <img src="/Photos/Harps_Feb11-12.jpg" alt="Spinach pesto stone-fired pizza at Harper's Restaurant &amp; Brewpub in East Lansing  house-made pesto, goat and feta cheese" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Harps_Feb11-12.webp" type="image/webp">
+          <img src="/Photos/Harps_Feb11-12.jpg" alt="Spinach pesto stone-fired pizza at Harper's Restaurant &amp; Brewpub in East Lansing  house-made pesto, goat and feta cheese" loading="lazy" decoding="async" width="600" height="900">
+        </picture>
         <div class="food-label">
           <span class="food-tag">Most Ordered</span>
           <strong class="food-name">Spinach Pesto Pizza</strong>
@@ -254,13 +268,22 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
         </div>
       </div>
       <div class="food-item reveal reveal-delay-1">
-        <img src="/Photos/Harps_Feb11-17.jpg" alt="Stone-fired pepperoni pizza from Harper's scratch kitchen in East Lansing" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Harps_Feb11-17.webp" type="image/webp">
+          <img src="/Photos/Harps_Feb11-17.jpg" alt="Stone-fired pepperoni pizza from Harper's scratch kitchen in East Lansing" loading="lazy" decoding="async" width="400" height="600">
+        </picture>
       </div>
       <div class="food-item reveal reveal-delay-2">
-        <img src="/Photos/Harps_Feb11-16.jpg" alt="Two stone-fired pizzas at Harper's East Lansing  pepperoni and spinach pesto sharing the table" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Harps_Feb11-16.webp" type="image/webp">
+          <img src="/Photos/Harps_Feb11-16.jpg" alt="Two stone-fired pizzas at Harper's East Lansing  pepperoni and spinach pesto sharing the table" loading="lazy" decoding="async" width="400" height="600">
+        </picture>
       </div>
       <div class="food-item food-wide reveal reveal-delay-1">
-        <img src="/Photos/Harps_Feb11-60.jpg" alt="Late-night app spread at Harper's East Lansing  fries, mozzarella sticks, and signature drinks" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Harps_Feb11-60.webp" type="image/webp">
+          <img src="/Photos/Harps_Feb11-60.jpg" alt="Late-night app spread at Harper's East Lansing  fries, mozzarella sticks, and signature drinks" loading="lazy" decoding="async" width="400" height="600">
+        </picture>
         <div class="food-label food-label-overlay">
           <strong class="food-name">Fries, Apps, Late Nights.</strong>
         </div>
@@ -268,13 +291,19 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
     </div>
     <div class="food-drinks-strip">
       <div class="food-item reveal">
-        <img src="/Photos/Harps_Feb11-28.jpg" alt="Bartender at Harper's East Lansing pouring a signature drink  Cat's Pajamas and Gypsy Vodka on the menu" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Harps_Feb11-28.webp" type="image/webp">
+          <img src="/Photos/Harps_Feb11-28.jpg" alt="Bartender at Harper's East Lansing pouring a signature drink  Cat's Pajamas and Gypsy Vodka on the menu" loading="lazy" decoding="async" width="400" height="600">
+        </picture>
         <div class="food-label food-label-overlay">
           <strong class="food-name">Cat's Pajamas. Gypsy Vodkas. The Pours You Came For.</strong>
         </div>
       </div>
       <div class="food-item reveal reveal-delay-1">
-        <img src="/Photos/Harps_Feb11-25.jpg" alt="MSU students cheersing drinks at Harper's bar in East Lansing" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="/Photos/Harps_Feb11-25.webp" type="image/webp">
+          <img src="/Photos/Harps_Feb11-25.jpg" alt="MSU students cheersing drinks at Harper's bar in East Lansing" loading="lazy" decoding="async" width="400" height="600">
+        </picture>
       </div>
     </div>
     <div class="food-ctas reveal">
@@ -293,7 +322,10 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
   <!-- ═══════════════════════════════════════════════════ GAME DAY -->
   <section class="gameday" id="gameday">
     <div class="gameday-bg" aria-hidden="true">
-      <img src="/Photos/Patio-77.jpg" alt="" class="gameday-img" loading="lazy" decoding="async">
+      <picture>
+        <source srcset="/Photos/Patio-77.webp" type="image/webp">
+        <img src="/Photos/Patio-77.jpg" alt="" class="gameday-img" loading="lazy" decoding="async" width="1200" height="1800">
+      </picture>
       <div class="gameday-overlay"></div>
     </div>
     <div class="gameday-content">
@@ -323,10 +355,10 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
   <!-- ═══════════════════════════════════════════════════ NIGHTLIFE / CLUB RUSH -->
   <section class="nightlife" id="nightlife">
     <div class="nightlife-slides" id="nightlife-slides" aria-hidden="true">
-      <div class="slide active" style="background-image:url('/Photos/DOD_ClubRush-03.jpg')"></div>
-      <div class="slide" style="background-image:url('/Photos/Deerock @ Harper\'s.jpg')"></div>
-      <div class="slide" style="background-image:url('/Photos/Patio-74.jpg')"></div>
-      <div class="slide" style="background-image:url('/Photos/Patio-87.jpg')"></div>
+      <div class="slide active" style="background-image:url('/Photos/DOD_ClubRush-03.webp')"></div>
+      <div class="slide" style="background-image:url('/Photos/Deerock @ Harper\'s.webp')"></div>
+      <div class="slide" style="background-image:url('/Photos/Patio-74.webp')"></div>
+      <div class="slide" style="background-image:url('/Photos/Patio-87.webp')"></div>
     </div>
     <div class="nightlife-overlay" aria-hidden="true"></div>
     <div class="nightlife-glow" id="nightlife-glow" aria-hidden="true"></div>
@@ -472,7 +504,10 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
   <!-- ═══════════════════════════════════════════════════ BREWERY -->
   <section class="brewery" id="brewery">
     <div class="brewery-bg" aria-hidden="true">
-      <img src="/Photos/BREW TANKS.jpg" alt="" class="brewery-img" loading="lazy" decoding="async">
+      <picture>
+        <source srcset="/Photos/BREW TANKS.webp" type="image/webp">
+        <img src="/Photos/BREW TANKS.jpg" alt="" class="brewery-img" loading="lazy" decoding="async" width="1130" height="1033">
+      </picture>
       <div class="brewery-overlay"></div>
     </div>
     <div class="brewery-content reveal">
@@ -533,19 +568,28 @@ const revealClass = (i: number) => ['reveal', 'reveal reveal-delay-1', 'reveal r
     <div class="merch-grid">
       <div class="merch-item reveal">
         <div class="merch-img-wrap">
-          <img src="/Photos/Harper's Merch-parents-6.jpg" alt="Harper's Restaurant &amp; Brewpub snapback hat  cream and green East Lansing merch" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="/Photos/Harper's Merch-parents-6.webp" type="image/webp">
+            <img src="/Photos/Harper's Merch-parents-6.jpg" alt="Harper's Restaurant &amp; Brewpub snapback hat  cream and green East Lansing merch" loading="lazy" decoding="async" width="400" height="600">
+          </picture>
         </div>
         <div class="merch-caption">Harper's East Lansing Snapback</div>
       </div>
       <div class="merch-item reveal reveal-delay-1">
         <div class="merch-img-wrap">
-          <img src="/Photos/Harper's Merch-parents-1.jpg" alt="Harper's East Lansing hats on the patio table  cream and green, Est. 1997" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="/Photos/Harper's Merch-parents-1.webp" type="image/webp">
+            <img src="/Photos/Harper's Merch-parents-1.jpg" alt="Harper's East Lansing hats on the patio table  cream and green, Est. 1997" loading="lazy" decoding="async" width="400" height="600">
+          </picture>
         </div>
         <div class="merch-caption">Cream &amp; Green &nbsp;&middot;&nbsp; Est. 1997</div>
       </div>
       <div class="merch-item reveal reveal-delay-2">
         <div class="merch-img-wrap">
-          <img src="/Photos/Harper's Merch-parents-28.jpg" alt="Harper's East Lansing crewneck sweatshirt  official Harper's Brewpub merch" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="/Photos/Harper's Merch-parents-28.webp" type="image/webp">
+            <img src="/Photos/Harper's Merch-parents-28.jpg" alt="Harper's East Lansing crewneck sweatshirt  official Harper's Brewpub merch" loading="lazy" decoding="async" width="400" height="600">
+          </picture>
         </div>
         <div class="merch-caption">Harper's Crewneck &nbsp;&middot;&nbsp; East Lansing</div>
       </div>
