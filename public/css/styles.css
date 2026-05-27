@@ -1401,8 +1401,16 @@ ul { list-style: none; }
   border-left: 3px solid var(--yellow);
 }
 
-/* ─── NAV CTA: pill shape ─── */
-.nav-links .nav-cta { border-radius: 100px; }
+/* ─── NAV CTA: pill shape + pulsing glow ─── */
+@keyframes merch-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(224,48,32,0.7), 0 0 8px rgba(224,48,32,0.4); }
+  60%  { box-shadow: 0 0 0 8px rgba(224,48,32,0), 0 0 16px rgba(224,48,32,0.2); }
+  100% { box-shadow: 0 0 0 0 rgba(224,48,32,0),   0 0 8px rgba(224,48,32,0.4); }
+}
+.nav-links .nav-cta {
+  border-radius: 100px;
+  animation: merch-pulse 2.4s ease-in-out infinite;
+}
 
 /* ─── BUTTON SHIMMER sweep on hover ─── */
 .btn-amber::before,
