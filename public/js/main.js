@@ -10,6 +10,16 @@ window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ─── HERO LOGO: hold animation until image is fully decoded ─── */
+  const heroLogoEl  = document.querySelector('.hero-logo');
+  const heroLogoImg = heroLogoEl ? heroLogoEl.querySelector('img') : null;
+  if (heroLogoEl && heroLogoImg) {
+    heroLogoEl.style.animationPlayState = 'paused';
+    heroLogoImg.decode()
+      .then(() => { heroLogoEl.style.animationPlayState = ''; })
+      .catch(() => { heroLogoEl.style.animationPlayState = ''; });
+  }
+
   /* ─── 0. HERO VIDEO: Autoplay + loop 2 seconds early ─── */
   const heroVideo = document.querySelector('.hero-video');
 
