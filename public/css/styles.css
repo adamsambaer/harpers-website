@@ -266,13 +266,13 @@ ul { list-style: none; }
 }
 .nav-links a:hover { color: var(--cream); }
 .nav-links .nav-cta {
-  background: var(--yellow);
-  color: #09081C;
+  background: var(--red);
+  color: var(--white);
   padding: 8px 18px;
   border-radius: var(--radius);
   transition: background 0.2s ease;
 }
-.nav-links .nav-cta:hover { background: var(--yellow-dark); color: #09081C; }
+.nav-links .nav-cta:hover { background: var(--red-light); color: var(--white); }
 
 .nav-hamburger {
   display: none;
@@ -1401,16 +1401,8 @@ ul { list-style: none; }
   border-left: 3px solid var(--yellow);
 }
 
-/* ─── NAV CTA: pill shape + pulsing glow ─── */
-@keyframes merch-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(245,197,24,0.8), 0 0 10px rgba(245,197,24,0.5); }
-  60%  { box-shadow: 0 0 0 10px rgba(245,197,24,0), 0 0 20px rgba(245,197,24,0.2); }
-  100% { box-shadow: 0 0 0 0 rgba(245,197,24,0),   0 0 10px rgba(245,197,24,0.5); }
-}
-.nav-links .nav-cta {
-  border-radius: 100px;
-  animation: merch-pulse 2.4s ease-in-out infinite;
-}
+/* ─── NAV CTA: pill shape ─── */
+.nav-links .nav-cta { border-radius: 100px; }
 
 /* ─── BUTTON SHIMMER sweep on hover ─── */
 .btn-amber::before,
