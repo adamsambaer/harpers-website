@@ -118,25 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function refreshCache() {
     const sy = window.scrollY;
-    if (patioPhotos.length) {
-      posCache.patio = Array.from(patioPhotos).map(img => {
-        const el = img.closest('.patio-photo');
-        const r  = el.getBoundingClientRect();
-        return { top: r.top + sy, height: el.offsetHeight };
-      });
-    }
-    if (gamedayImg) {
-      const el = gamedayImg.closest('.gameday');
-      const r  = el.getBoundingClientRect();
-      posCache.gamedayTop = r.top + sy;
-      posCache.gamedayH   = el.offsetHeight;
-    }
-    if (breweryImg) {
-      const el = breweryImg.closest('.brewery');
-      const r  = el.getBoundingClientRect();
-      posCache.breweryTop = r.top + sy;
-      posCache.breweryH   = el.offsetHeight;
-    }
     if (thisweekSection) {
       const r = thisweekSection.getBoundingClientRect();
       posCache.thisweekTop = r.top + sy;
@@ -158,38 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Hero scroll cue fade */
     if (scrollCue) scrollCue.style.opacity = scrollY > 80 ? '0' : '1';
-
-    /* Patio horizontal parallax */
-    if (posCache.patio) {
-      patioPhotos.forEach((img, i) => {
-        const pos = posCache.patio[i];
-        if (!pos) return;
-        const top    = pos.top - scrollY;
-        const bottom = top + pos.height;
-        if (bottom < 0 || top > wh) return;
-        const center = top + pos.height / 2 - wh / 2;
-        const shift  = (center / wh) * 24 * (i % 2 === 0 ? 1 : -1);
-        img.style.transform = `translateX(${shift}px) scale(1.08)`;
-      });
-    }
-
-    /* Game day parallax */
-    if (gamedayImg && posCache.gamedayTop !== undefined) {
-      const top    = posCache.gamedayTop - scrollY;
-      const bottom = top + posCache.gamedayH;
-      if (bottom >= 0 && top <= wh) {
-        gamedayImg.style.transform = `scale(1.14) translateY(${(top / wh) * 44}px)`;
-      }
-    }
-
-    /* Brewery parallax */
-    if (breweryImg && posCache.breweryTop !== undefined) {
-      const top    = posCache.breweryTop - scrollY;
-      const bottom = top + posCache.breweryH;
-      if (bottom >= 0 && top <= wh) {
-        breweryImg.style.transform = `scale(1.14) translateY(${(top / wh) * 44}px)`;
-      }
-    }
 
     /* JIT photo + drink arm scroll-driven reveal */
     if (posCache.thisweekTop !== undefined) {
@@ -420,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
           entry.target.pause();
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.5 });
     sectionVideos.forEach(v => videoObserver.observe(v));
   }
 
