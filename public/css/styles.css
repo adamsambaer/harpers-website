@@ -1549,22 +1549,20 @@ ul { list-style: none; }
     pointer-events: none;
   }
 
-  /* ── Brand wordmark at top of drawer (CSS-only, no HTML change) ── */
+  /* ── Logo at top of drawer (CSS-only, no HTML change) ── */
   .nav-links.mobile-open::before {
-    content: "HARPER'S";
+    content: "";
     display: block;
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    color: rgba(255, 251, 244, 0.18);
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 36px;
+    width: 56px;
+    height: 56px;
+    background-image: url('/Photos/harpers-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+    margin-bottom: 32px;
     padding-bottom: 28px;
     border-bottom: 1px solid rgba(255, 251, 244, 0.06);
-    width: 100%;
-    flex-shrink: 0;
   }
 
   /* ── Individual nav link items ── */
@@ -1594,9 +1592,9 @@ ul { list-style: none; }
     display: block;
     width: 100%;
     text-align: center;
-    font-family: var(--font-body);
+    font-family: var(--font-display);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(255, 251, 244, 0.72);
