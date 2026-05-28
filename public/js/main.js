@@ -63,20 +63,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutSection    = document.getElementById('about');
 
   /* ─── 1. NAV MOBILE MENU ─── */
+  let navCloseTimer = null;
+
+  function openMobileNav() {
+    if (navCloseTimer) { clearTimeout(navCloseTimer); navCloseTimer = null; }
+    navLinks.classList.remove('closing');
+    navLinks.classList.add('mobile-open');
+    navOverlay.classList.remove('closing');
+    navOverlay.style.display = 'block';
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileNav() {
+    if (!navLinks.classList.contains('mobile-open')) return;
+    navLinks.classList.add('closing');
+    navOverlay.classList.add('closing');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    navCloseTimer = setTimeout(() => {
+      navLinks.classList.remove('mobile-open', 'closing');
+      navOverlay.classList.remove('closing');
+      navOverlay.style.display = 'none';
+      navCloseTimer = null;
+    }, 300);
+  }
+
   function toggleMobileNav(open) {
-    navLinks.classList.toggle('mobile-open', open);
-    hamburger.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open);
-    navOverlay.style.display = open ? 'block' : 'none';
-    document.body.style.overflow = open ? 'hidden' : '';
+    open ? openMobileNav() : closeMobileNav();
   }
 
   hamburger.addEventListener('click', () => {
     toggleMobileNav(!navLinks.classList.contains('mobile-open'));
   });
-  navOverlay.addEventListener('click', () => toggleMobileNav(false));
+  navOverlay.addEventListener('click', () => closeMobileNav());
   navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => toggleMobileNav(false));
+    a.addEventListener('click', () => closeMobileNav());
   });
 
   /* ─── 2. SMOOTH SCROLL ─── */

@@ -1470,41 +1470,184 @@ ul { list-style: none; }
 /* ════════════════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════════════════ */
+/* ─── MOBILE NAV DRAWER ─── */
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); opacity: 0.6; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes drawerSlideOut {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+/* Per-item stagger: defined once, referenced via --i on each <li> */
+@keyframes navItemIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 @media (max-width: 900px) {
+  /* Hide desktop links; show hamburger */
   .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* ── Overlay: blur + dark tint ── */
+  .nav-overlay {
+    background: rgba(5, 4, 18, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: opacity 0.3s ease;
+  }
+  .nav-overlay.closing {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ── Hamburger → X morph ── */
+  .nav-hamburger span {
+    transition: transform 0.32s var(--ease-out),
+                opacity   0.22s ease,
+                width     0.22s ease,
+                background 0.22s ease;
+  }
+  .nav-hamburger.open span { background: var(--teal); }
+  .nav-hamburger.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .nav-hamburger.open span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+  .nav-hamburger.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ── Drawer: open state ── */
   .nav-links.mobile-open {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0; right: 0;
-    width: min(320px, 85vw);
-    height: 100vh;
-    background: var(--navy);
-    padding: 96px 32px 40px;
-    gap: 4px;
+    width: min(300px, 88vw);
+    height: 100dvh;
+    background: var(--navy-dark);
+    /* Teal top accent bar */
+    border-top: 3px solid var(--teal);
+    border-left: 1px solid rgba(0, 181, 191, 0.15);
+    padding: 80px 32px 48px;
+    gap: 0;
     z-index: 999;
     overflow-y: auto;
-    box-shadow: -4px 0 40px rgba(0,0,0,0.4);
-    animation: slideInRight 0.35s var(--ease-out);
+    box-shadow: -2px 0 60px rgba(0, 0, 0, 0.55),
+                -1px 0 0  rgba(0, 181, 191, 0.08);
+    animation: drawerSlideIn 0.38s var(--ease-out) both;
   }
-  .nav-links.mobile-open a {
-    font-size: 0.9rem;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255,251,244,0.08);
+  /* Closing state: play exit animation */
+  .nav-links.mobile-open.closing {
+    animation: drawerSlideOut 0.3s ease-in both;
+    pointer-events: none;
+  }
+
+  /* ── Brand wordmark at top of drawer (CSS-only, no HTML change) ── */
+  .nav-links.mobile-open::before {
+    content: "HARPER'S";
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: rgba(255, 251, 244, 0.18);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 251, 244, 0.06);
     width: 100%;
-    color: rgba(255,251,244,0.85);
+    flex-shrink: 0;
+  }
+
+  /* ── Individual nav link items ── */
+  .nav-links.mobile-open li {
+    width: 100%;
+    opacity: 0;
+    animation: navItemIn 0.4s var(--ease-out) both;
+    animation-delay: calc(0.06s + var(--i, 0) * 0.055s);
+  }
+  /* Assign stagger index to each list item */
+  .nav-links.mobile-open li:nth-child(1)  { --i: 1; }
+  .nav-links.mobile-open li:nth-child(2)  { --i: 2; }
+  .nav-links.mobile-open li:nth-child(3)  { --i: 3; }
+  .nav-links.mobile-open li:nth-child(4)  { --i: 4; }
+  .nav-links.mobile-open li:nth-child(5)  { --i: 5; }
+  .nav-links.mobile-open li:nth-child(6)  { --i: 6; }
+  .nav-links.mobile-open li:nth-child(7)  { --i: 7; }
+  .nav-links.mobile-open li:nth-child(8)  { --i: 8; }
+  /* Suppress item animation when drawer is closing */
+  .nav-links.mobile-open.closing li {
+    animation: none;
+    opacity: 1;
+  }
+
+  /* ── Link styles ── */
+  .nav-links.mobile-open a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 251, 244, 0.72);
+    padding: 14px 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 251, 244, 0.06);
+    transition: color 0.18s ease, padding-left 0.18s ease;
+    min-height: 44px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-links.mobile-open a:hover,
+  .nav-links.mobile-open a:focus {
+    color: var(--cream);
+  }
+
+  /* Remove border from last regular link before the CTA */
+  .nav-links.mobile-open li:nth-last-child(2) a {
+    border-bottom: none;
+  }
+
+  /* ── Shop Merch CTA: red pill button ── */
+  .nav-links.mobile-open li:last-child {
+    margin-top: 28px;
+    width: 100%;
   }
   .nav-links.mobile-open .nav-cta {
-    background: none;
-    color: var(--yellow);
-    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: var(--red);
+    color: var(--white);
+    padding: 15px 24px;
+    border-radius: 100px;
+    border-bottom: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    min-height: 50px;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 20px rgba(224, 48, 32, 0.35);
   }
-  .nav-hamburger { display: flex; }
-
-  @keyframes slideInRight {
-    from { transform: translateX(100%); }
-    to   { transform: translateX(0); }
+  .nav-links.mobile-open .nav-cta:hover {
+    background: var(--red-light);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(224, 48, 32, 0.5);
+    color: var(--white);
   }
 
   .about-inner  { display: flex; flex-direction: column; gap: 48px; }
@@ -2448,5 +2591,17 @@ ul { list-style: none; }
   .lazy-img {
     opacity: 1;
     transition: none;
+  }
+  /* Mobile nav: skip slide and stagger animations */
+  .nav-links.mobile-open {
+    animation: none;
+  }
+  .nav-links.mobile-open.closing {
+    animation: none;
+    display: none;
+  }
+  .nav-links.mobile-open li {
+    animation: none;
+    opacity: 1;
   }
 }
