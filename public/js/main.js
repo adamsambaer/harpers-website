@@ -41,11 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── IMAGE LAZY FADE-IN ─── */
   document.querySelectorAll('img[loading="lazy"]').forEach(img => {
     img.classList.add('lazy-img');
-    if (img.complete && img.naturalWidth > 0) {
-      img.classList.add('img-loaded');
-    } else {
-      img.addEventListener('load', () => img.classList.add('img-loaded'));
-    }
+    img.addEventListener('load', () => img.classList.add('img-loaded'));
+    if (img.complete) img.classList.add('img-loaded');
   });
 
   /* ─── GATHER DOM REFS (single pass) ─── */
