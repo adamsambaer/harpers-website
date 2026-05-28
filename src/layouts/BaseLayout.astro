@@ -49,8 +49,8 @@
   <link rel="apple-touch-icon" href="/Photos/harpers-logo.png">
 
   <!-- ─── RESOURCE HINTS ─── -->
-  <link rel="preload" as="image" href="/Photos/Harps_Feb11-28_no-logo_16x9.webp" fetchpriority="high">
   <link rel="preload" as="image" href="/Photos/harpers-logo.png" fetchpriority="high">
+  <link rel="preload" as="image" href="/Photos/Harps_Feb11-28_no-logo_16x9.webp">
   <link rel="preload" href="/Font/Bungee/Bungee-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- ─── FONTS / STYLES ─── -->
@@ -201,7 +201,7 @@
     <button class="ll-sticky-dismiss" id="ll-sticky-dismiss" aria-label="Dismiss">&times;</button>
   </div>
 
-  <script is:inline src="/js/main.js?v=15"></script>
+  <script is:inline src="/js/main.js?v=16"></script>
   <script is:inline>
     (function () {
       if (sessionStorage.getItem('ll-bar-dismissed')) return;
@@ -222,9 +222,8 @@
     }());
   </script>
   <script>
-    import { enableVisualEditing } from '@sanity/visual-editing';
     if (window !== window.parent) {
-      enableVisualEditing({ zIndex: 1000 });
+      import('@sanity/visual-editing').then(m => m.enableVisualEditing({ zIndex: 1000 }));
     }
   </script>
 </body>

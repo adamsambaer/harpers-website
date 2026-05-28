@@ -113,7 +113,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ─── 3. CONSOLIDATED SCROLL HANDLER (single RAF tick) ─── */
+  /* ─── 3. POSITION CACHE — computed once, never during scroll ─── */
+  let posCache = {};
+
+  function refreshCache() {
+    const sy = window.scrollY;
+    if (patioPhotos.length) {
+      posCache.patio = Array.from(patioPhotos).map(img => {
+        const el = img.closest('.patio-photo');
+        const r  = el.getBoundingClientRect();
+        return { top: r.top + sy, height: el.offsetHeight };
+      });
+    }
+    if (gamedayImg) {
+      const el = gamedayImg.closest('.gameday');
+      const r  = el.getBoundingClientRect();
+      posCache.gamedayTop = r.top + sy;
+      posCache.gamedayH   = el.offsetHeight;
+    }
+    if (breweryImg) {
+      const el = breweryImg.closest('.brewery');
+      const r  = el.getBoundingClientRect();
+      posCache.breweryTop = r.top + sy;
+      posCache.breweryH   = el.offsetHeight;
+    }
+    if (thisweekSection) {
+      const r = thisweekSection.getBoundingClientRect();
+      posCache.thisweekTop = r.top + sy;
+      posCache.thisweekH   = thisweekSection.offsetHeight;
+    }
+  }
+
+  /* ─── CONSOLIDATED SCROLL HANDLER (single RAF tick, zero getBCR) ─── */
   let scrollTick  = false;
   let armExtended = false;
   let jitExtended = false;
@@ -129,58 +160,58 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scrollCue) scrollCue.style.opacity = scrollY > 80 ? '0' : '1';
 
     /* Patio horizontal parallax */
-    patioPhotos.forEach((img, i) => {
-      const rect = img.closest('.patio-photo').getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > wh) return;
-      const center = rect.top + rect.height / 2 - wh / 2;
-      const shift  = (center / wh) * 24 * (i % 2 === 0 ? 1 : -1);
-      img.style.transform = `translateX(${shift}px) scale(1.08)`;
-    });
+    if (posCache.patio) {
+      patioPhotos.forEach((img, i) => {
+        const pos = posCache.patio[i];
+        if (!pos) return;
+        const top    = pos.top - scrollY;
+        const bottom = top + pos.height;
+        if (bottom < 0 || top > wh) return;
+        const center = top + pos.height / 2 - wh / 2;
+        const shift  = (center / wh) * 24 * (i % 2 === 0 ? 1 : -1);
+        img.style.transform = `translateX(${shift}px) scale(1.08)`;
+      });
+    }
 
     /* Game day parallax */
-    if (gamedayImg) {
-      const rect = gamedayImg.closest('.gameday').getBoundingClientRect();
-      if (rect.bottom >= 0 && rect.top <= wh) {
-        gamedayImg.style.transform = `scale(1.14) translateY(${(rect.top / wh) * 44}px)`;
+    if (gamedayImg && posCache.gamedayTop !== undefined) {
+      const top    = posCache.gamedayTop - scrollY;
+      const bottom = top + posCache.gamedayH;
+      if (bottom >= 0 && top <= wh) {
+        gamedayImg.style.transform = `scale(1.14) translateY(${(top / wh) * 44}px)`;
       }
     }
 
     /* Brewery parallax */
-    if (breweryImg) {
-      const rect = breweryImg.closest('.brewery').getBoundingClientRect();
-      if (rect.bottom >= 0 && rect.top <= wh) {
-        breweryImg.style.transform = `scale(1.14) translateY(${(rect.top / wh) * 44}px)`;
+    if (breweryImg && posCache.breweryTop !== undefined) {
+      const top    = posCache.breweryTop - scrollY;
+      const bottom = top + posCache.breweryH;
+      if (bottom >= 0 && top <= wh) {
+        breweryImg.style.transform = `scale(1.14) translateY(${(top / wh) * 44}px)`;
       }
     }
 
-    /* JIT photo scroll-driven reveal (slides in from right, parallel with drink arm) */
-    if (aboutJitWrap && thisweekSection) {
-      const rect     = thisweekSection.getBoundingClientRect();
-      const scrolled = wh - rect.top;
-      const total    = wh + rect.height;
+    /* JIT photo + drink arm scroll-driven reveal */
+    if (posCache.thisweekTop !== undefined) {
+      const scrolled = wh - (posCache.thisweekTop - scrollY);
+      const total    = wh + posCache.thisweekH;
       const progress = Math.max(0, Math.min(1, scrolled / total));
 
-      if (progress >= 0.68) jitExtended = true;
-      if (progress < 0.50)  jitExtended = false;
+      if (aboutJitWrap) {
+        if (progress >= 0.68) jitExtended = true;
+        if (progress <  0.50) jitExtended = false;
+        const jitT = Math.max(0, Math.min(1, (progress - 0.55) / 0.13));
+        const jit  = jitExtended ? 1 : jitT * jitT * (3 - 2 * jitT);
+        aboutJitWrap.style.transform = `translateX(${(1 - jit) * 100}%)`;
+      }
 
-      const jitT = Math.max(0, Math.min(1, (progress - 0.55) / 0.13));
-      const jit  = jitExtended ? 1 : jitT * jitT * (3 - 2 * jitT);
-      aboutJitWrap.style.transform = `translateX(${(1 - jit) * 100}%)`;
-    }
-
-    /* Drink arm scroll-driven reveal */
-    if (drinkArmWrap && thisweekSection) {
-      const rect     = thisweekSection.getBoundingClientRect();
-      const scrolled = wh - rect.top;
-      const total    = wh + rect.height;
-      const progress = Math.max(0, Math.min(1, scrolled / total));
-
-      if (progress >= 0.68) armExtended = true;
-      if (progress < 0.50)  armExtended = false;
-
-      const armT = Math.max(0, Math.min(1, (progress - 0.55) / 0.13));
-      const arm  = armExtended ? 1 : armT * armT * (3 - 2 * armT);
-      drinkArmWrap.style.transform = `translateX(${(1 - arm) * -110}%)`;
+      if (drinkArmWrap) {
+        if (progress >= 0.68) armExtended = true;
+        if (progress <  0.50) armExtended = false;
+        const armT = Math.max(0, Math.min(1, (progress - 0.55) / 0.13));
+        const arm  = armExtended ? 1 : armT * armT * (3 - 2 * armT);
+        drinkArmWrap.style.transform = `translateX(${(1 - arm) * -110}%)`;
+      }
     }
 
     scrollTick = false;
@@ -193,6 +224,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+  /* Refresh cache on resize (layout changes) and after full page load (lazy images settle) */
+  let resizeTick = false;
+  window.addEventListener('resize', () => {
+    if (!resizeTick) {
+      resizeTick = true;
+      requestAnimationFrame(() => { refreshCache(); handleScroll(); resizeTick = false; });
+    }
+  }, { passive: true });
+  window.addEventListener('load', () => { refreshCache(); handleScroll(); }, { once: true });
+
+  refreshCache();
   handleScroll(); /* run once on load */
 
   /* ─── 4. IMAGE PRE-LOADER: start fetching lazy images well before they animate ─── */
